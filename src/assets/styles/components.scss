@@ -1,0 +1,13 @@
+@use "@angular/material" as mat;
+
+// Overrides de componentes de Angular Material.
+// Los tokens `--mat-sys-*` los genera `mat.theme()` en `src/material-theme.scss`
+// y están disponibles globalmente en runtime, así que se referencian directo.
+// (Los alias `--color-*` de theme.css también funcionan aquí.)
+
+:root {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--color-primary),
+    container-text-color: var(--color-on-primary),
+  ));
+}
