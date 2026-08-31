@@ -1,0 +1,26 @@
+mat-toolbar {
+  color: var(--color-on-primary);
+
+  button {
+    color: var(--color-on-primary);
+  }
+
+  .icon {
+    background-color: var(--color-on-primary);
+    color: var(--color-primary);
+    border-radius: var(--radius-small);
+    font-size: 18px;
+    padding: 3px;
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+}
+
+mat-sidenav-container {
+  height: calc(100vh - var(--toolbar-standard-height));
+
+  mat-sidenav {
+    max-width: 220px;
+  }
+}
+

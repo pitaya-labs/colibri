@@ -9,5 +9,20 @@
   @include mat.toolbar-overrides((
     container-background-color: var(--color-primary),
     container-text-color: var(--color-on-primary),
+    standard-height: var(--toolbar-standard-height),
   ));
+
+  @include mat.select-overrides((
+    enabled-trigger-text-color: var(--color-on-primary),
+    placeholder-text-color: var(--color-on-primary),
+    enabled-arrow-color: var(--color-on-primary),
+  ));
+
+  .form-field-header {
+    @include mat.form-field-overrides((
+      filled-label-text-color: purple,
+      outlined-label-text-color: purple,
+    ));
+  }
+
 }
