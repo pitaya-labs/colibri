@@ -3,7 +3,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@angular/material/list';
 
 @Component({
@@ -22,6 +22,7 @@ import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@ang
     MatListItem,
     MatListItemTitle,
     MatListItemIcon,
+    RouterLink,
   ],
   selector: 'app-main',
   styleUrl: './main.css',
