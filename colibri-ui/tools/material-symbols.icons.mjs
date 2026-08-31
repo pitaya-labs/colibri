@@ -13,13 +13,17 @@
 
   // Ecommerce
   'shopping_cart',
+  'domain',
 
   // User
   'person',
+  'patient_list',
+  'event_note',
 
   // System
   'notifications',
   'search',
   'settings',
   'android_wifi_3_bar_off',
+  'verified_user',
 ];

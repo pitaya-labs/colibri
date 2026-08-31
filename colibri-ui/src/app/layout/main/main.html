@@ -1,3 +1,52 @@
 <mat-toolbar>
-  Esta madre
+  <button matIconButton>
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+  <div class="icon">
+    <span>EC</span>
+  </div>
+  <div>
+    <label>Expediente Clinico</label>
+  </div>
+  <div class="flex grow"></div>
+  <div class="flex flex-row items-center text-sm space-x-4">
+    <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field-header my-2">
+      <mat-select>
+        <mat-select-trigger>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined">domain</span>
+            <span>Consultorio 1</span>
+          </div>
+        </mat-select-trigger>
+        <mat-option value="1">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined">domain</span>
+            <span>Consultorio 1</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="flex items-center bg-inverse-primary py-2 px-4 rounded-3xl">
+      <span class="material-symbols-outlined">verified_user</span>MFA
+    </div>
+    <span class="material-symbols-outlined filled">notifications</span>
+  </div>
 </mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <mat-list-item>
+        <span class="material-symbols-outlined" matListItemIcon>event_note</span>
+        <a matListItemTitle>Agenda</a>
+      </mat-list-item>
+      <mat-list-item>
+        <span class="material-symbols-outlined" matListItemIcon>patient_list</span>
+        <a matListItemTitle>Pacientes</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="p-4">
+    esta madre
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
