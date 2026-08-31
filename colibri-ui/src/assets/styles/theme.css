@@ -1,0 +1,29 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-primary: #00695c;
+  --color-secondary: #0277bd;
+
+  --color-surface: #fafafa;
+  --color-surface-dark: #121212;
+
+  /* ---- Badges de estado — fijos en toda la app, no varían por pantalla ---- */
+
+  /* Cita */
+  --color-cita-agendada: #6a1b9a;
+  --color-cita-confirmada: #6a1b9a;
+  --color-cita-cancelada: #c62828;
+  --color-cita-no-presentado: #c62828;
+
+  /* Consulta */
+  --color-consulta-abierta: #0277bd;
+  --color-consulta-cerrada: #616161;
+
+  /* Documento (nota / historia / receta) */
+  --color-documento-borrador: #f9a825;
+  --color-documento-finalizado: #2e7d32;
+  --color-documento-anulado: #c62828;
+  --color-documento-sustituido: #616161;
+
+  --font-sans: Roboto, Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
