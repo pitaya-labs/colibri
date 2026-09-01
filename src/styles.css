@@ -3,3 +3,10 @@
 @import './assets/styles/material-symbols.generated.css';
 @import 'tailwindcss';
 @import './assets/styles/theme.css';
+
+
+.icon-with-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

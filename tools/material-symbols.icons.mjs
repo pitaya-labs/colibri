@@ -10,6 +10,7 @@
   'close',
   'delete',
   'edit',
+  'calendar_add_on',
 
   // Ecommerce
   'shopping_cart',
