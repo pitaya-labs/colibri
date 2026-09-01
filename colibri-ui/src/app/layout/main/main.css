@@ -22,5 +22,9 @@ mat-sidenav-container {
   mat-sidenav {
     max-width: 220px;
   }
+
+  mat-sidenav-content {
+    background-color: var(--color-inverse-on-surface);
+  }
 }
 
