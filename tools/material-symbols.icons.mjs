@@ -31,4 +31,5 @@
   'verified_user',
   'download',
   'table_view',
+  'lock',
 ];

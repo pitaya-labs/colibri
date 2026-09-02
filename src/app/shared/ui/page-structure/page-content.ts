@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
     .page-content {
       display: block;
       padding-top: 20px;
+      margin: 0 12px;
     }
   `,
 })

@@ -8,6 +8,7 @@ import { Component, input } from '@angular/core';
       display: flex;
       flex-direction: row;
       margin-bottom: 10px;
+      padding: var(--padding-12) var(--padding-12) 0 var(--padding-12);
 
       span {
         margin-right: 10px;
@@ -24,7 +25,7 @@ import { Component, input } from '@angular/core';
     <section>
       @for (item of path(); track $index) {
         <span>{{ item }}</span>
-        @if($index < path().length-1) {
+        @if ($index < path().length - 1) {
           <span>&gt;</span>
         }
       }

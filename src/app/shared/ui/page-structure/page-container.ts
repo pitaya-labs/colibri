@@ -15,7 +15,6 @@ import { Component } from '@angular/core';
       display: block;
       justify-content: space-between;
       align-items: center;
-      margin: 24px 12px;
     }
   `,
 })
