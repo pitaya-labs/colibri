@@ -12,8 +12,12 @@ export const routes: Routes = [
       },
       {
         path: 'agenda',
-        loadChildren: ()=> import('./features/agenda/routes')
-      }
-    ]
-  }
+        loadChildren: () => import('./features/agenda/routes'),
+      },
+      {
+        path: 'patients',
+        loadChildren: () => import('./features/patient/routes'),
+      },
+    ],
+  },
 ];
