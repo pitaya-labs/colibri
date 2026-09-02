@@ -19,6 +19,7 @@
 
   // User
   'person',
+  'person_add',
   'patient_list',
   'event_note',
 
