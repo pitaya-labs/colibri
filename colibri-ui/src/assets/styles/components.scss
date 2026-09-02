@@ -12,18 +12,29 @@
     standard-height: var(--toolbar-standard-height),
   ));
 
-  @include mat.select-overrides((
-    enabled-trigger-text-color: var(--color-on-primary),
-    placeholder-text-color: var(--color-on-primary),
-    enabled-arrow-color: var(--color-on-primary),
-  ));
-
-  .form-field-header {
-    //@include mat.form-field-overrides((
-    //  filled-label-text-color: purple,
-    //  outlined-label-text-color: purple,
-    //));
+  .select-header {
+    @include mat.select-overrides((
+      enabled-trigger-text-color: var(--color-on-primary),
+      placeholder-text-color: var(--color-on-primary),
+      enabled-arrow-color: var(--color-on-primary),
+    ));
   }
+
+  //.form-field-header {
+  //  @include mat.form-field-overrides((
+  //    filled-label-text-color: purple,
+  //    outlined-label-text-color: purple,
+  //  ));
+  //}
+
+  //.form-field-small {
+    @include mat.form-field-overrides((
+      //container-height: 35px,
+      //container-vertical-padding: 20px,
+      //filled-with-label-container-padding-top: 4px,
+      //filled-with-label-container-padding-bottom: 4px
+    ));
+  //}
 
   @include mat.sidenav-overrides((
     container-shape: 0,
@@ -33,5 +44,73 @@
   @include mat.button-overrides((
     filled-container-shape: 6px,
     outlined-container-shape: 6px,
+    text-container-shape: 6px,
   ));
+
+  .button-secondary {
+    @include mat.button-overrides((
+      filled-container-color: var(--color-tertiary),
+      outlined-outline-color: var(--mat-sys-secondary),
+      outlined-label-text-color: var(--mat-sys-on-secondary-container),
+
+      outlined-ripple-color: var(--secondary-a12),
+    ));
+  }
+
+  // mat-table Component
+  @include mat.table-overrides((
+    header-container-height: 45px,
+    row-item-container-height: 40px,
+    row-item-outline-color: var(--mat-sys-surface-dim),
+  ));
+
+  tr.mat-mdc-header-row {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+
+  // mat-button Component
+  .button-toggle-compact {
+    @include mat.button-toggle-overrides((
+      shape: 8px,
+      height: var(--form-fields-height-compact),
+      label-text-size: 14px,
+      label-text-weight: 400,
+      selected-state-background-color: var(--mat-sys-primary-container),
+      selected-state-text-color: var(--mat-sys-on-primary-container),
+    ));
+  }
+
+  // Mat-form-field Component
+  .form-field-compact {
+    .mat-mdc-text-field-wrapper {
+      padding-top: 0;
+      padding-bottom: 0;
+      height: var(--form-fields-height-compact);
+    }
+
+    .mat-mdc-form-field-flex {
+      align-items: center;
+      height: 100%;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+      min-height: unset !important;
+    }
+
+    .mat-mdc-floating-label {
+      top: calc(var(--form-fields-height-compact, 38px) / 2) !important;
+    }
+
+    .mat-mdc-input-element {
+      font-size: 13px;
+    }
+
+    .mat-mdc-form-field-icon-prefix,
+    .mat-mdc-form-field-icon-suffix {
+      padding: 0 4px;
+      align-self: center;
+    }
+  }
 }

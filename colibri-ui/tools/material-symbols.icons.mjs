@@ -11,6 +11,7 @@
   'delete',
   'edit',
   'calendar_add_on',
+  'filter_alt',
 
   // Ecommerce
   'shopping_cart',
@@ -27,4 +28,6 @@
   'settings',
   'android_wifi_3_bar_off',
   'verified_user',
+  'download',
+  'table_view',
 ];
