@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell,
   MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { RouterLink } from '@angular/router';
 
 @Component({
   imports: [
@@ -35,6 +36,7 @@ import { MatPaginator } from '@angular/material/paginator';
     MatRowDef,
     MatTable,
     MatHeaderCellDef,
+    RouterLink,
   ],
   selector: 'app-list',
   styleUrl: './list.css',

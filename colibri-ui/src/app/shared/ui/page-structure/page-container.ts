@@ -4,10 +4,12 @@ import { Component } from '@angular/core';
   imports: [],
   selector: 'page-container',
   template: `
-  <main class="page-structure-card">
-    <ng-content select="page-header"></ng-content>
-    <ng-content select="page-content"></ng-content>
-  </main> `,
+    <main class="page-structure-card">
+      <ng-content select="page-breadcrumb"></ng-content>
+      <ng-content select="page-header"></ng-content>
+      <ng-content select="page-content"></ng-content>
+    </main>
+  `,
   styles: `
     .page-structure-card {
       display: block;
