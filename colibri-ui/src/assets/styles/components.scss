@@ -41,6 +41,7 @@
     container-divider-color: var(--color-surface-dim),
   ));
 
+  // mat-button Component
   @include mat.button-overrides((
     filled-container-shape: 6px,
     outlined-container-shape: 6px,
@@ -54,6 +55,19 @@
       outlined-label-text-color: var(--mat-sys-on-secondary-container),
 
       outlined-ripple-color: var(--secondary-a12),
+    ));
+  }
+
+  .button-small {
+    @include mat.button-overrides((
+      outlined-container-height: 30px,
+      outlined-horizontal-padding: 16px,
+
+      filled-container-height: 30px,
+      filled-horizontal-padding: 16px,
+
+      text-container-height: 30px,
+      text-horizontal-padding: 16px
     ));
   }
 

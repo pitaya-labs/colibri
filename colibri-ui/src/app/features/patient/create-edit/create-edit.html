@@ -1,11 +1,128 @@
 <page-container>
   <page-breadcrumb [path]="['Pacientes', 'Nuevo Paciente']"></page-breadcrumb>
-  <page-header>
+  <page-header [isSticky]="true">
     <div pageHeaderTitle>Nuevo Paciente</div>
     <div pageHeaderInformation>Registro de alta · los campos marcados como (opcional) pueden completarse después desde el expediente.</div>
+    <div pageHeaderActions class="flex gap-2">
+      <button matButton="outlined" class="button-small">Cancelar</button>
+      <button matButton="filled" class="button-small">
+        <div class="icon-with-text">
+          <span class="material-symbols-outlined">person_add</span>
+          Guardar
+        </div>
+      </button>
+    </div>
   </page-header>
 
   <page-content>
 
+    <section class="border-b border-b-surface-container-high py-2 space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Identificacion del paciente</span>
+        <span class="text-error text-label-sm font-normal">Obligatorio</span>
+      </header>
+
+      <form class="flex flex-col gap-2 w-1/2">
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Primer Nombre *</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Apellido Paterno *</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Apellido Materno *</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Fecha de Nacimiento *</mat-label>
+          <input matInput type="date">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Sexo Registrado *</mat-label>
+          <mat-select>
+            <mat-option>Masculino</mat-option>
+            <mat-option>Femenino</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>CURP (opcional)</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+      </form>
+    </section>
+
+    <section class="border-b border-b-surface-container-high py-2 space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Contacto y Localizacion</span>
+        <span class="text-error text-label-sm font-normal">Telefono Obligatorio</span>
+      </header>
+
+      <form class="flex flex-col gap-2 w-1/2">
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Telefono Principal *</mat-label>
+          <input matInput type="tel">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Correo Electronico (opcional)</mat-label>
+          <input matInput type="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Codigo Postal (opcional)</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Municipio (automatico)</mat-label>
+          <span class="material-symbols-outlined" matIconPrefix>lock</span>
+          <input matInput type="text" disabled>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Estado (automatico)</mat-label>
+          <span class="material-symbols-outlined" matIconPrefix>lock</span>
+          <input matInput type="text" disabled>
+        </mat-form-field>
+
+      </form>
+    </section>
+
+    <section class="border-b border-b-surface-container-high py-2 space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Informacion Clinica</span>
+        <span class="text-label-sm font-normal">Opcional</span>
+      </header>
+
+      <form class="flex flex-col gap-2 w-1/2">
+        <mat-form-field appearance="outline" class="form-field-compact mb-4">
+          <mat-label>Alergias Conocidas (opcional)</mat-label>
+          <input matInput type="text">
+          <mat-hint class="text-label-sm text-gray-400">Puede completarse o corregirse desde el expediente en cualquier momento.</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Contacto Emergencia - nombre (opcional)</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Contacto Emergencia - telefono (opcional)</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Observaciones del registro(opcional)</mat-label>
+          <textarea matInput rows="6" placeholder="Ej. Paciente referido por Dr. Garcia, tiene dificultad para caminar largas dintancias"></textarea>
+        </mat-form-field>
+      </form>
+    </section>
   </page-content>
 </page-container>
