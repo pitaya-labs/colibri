@@ -6,6 +6,7 @@ import { Breadcrumb } from '@shared-ui/page-structure/breadcrumb';
 import { MatFormField, MatHint, MatInput, MatLabel, MatPrefix } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   imports: [
@@ -21,6 +22,7 @@ import { MatButton } from '@angular/material/button';
     MatPrefix,
     MatHint,
     MatButton,
+    RouterLink,
   ],
   selector: 'app-create-edit',
   styleUrl: './create-edit.css',

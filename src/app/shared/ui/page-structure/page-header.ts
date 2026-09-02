@@ -1,4 +1,13 @@
-import { afterNextRender, Component, DestroyRef, ElementRef, inject, input, signal, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
 
 @Component({
   imports: [],
@@ -9,7 +18,7 @@ import { afterNextRender, Component, DestroyRef, ElementRef, inject, input, sign
       justify-content: space-between;
       gap: 4px;
       background-color: var(--color-surface-container-low);
-      padding: 0 var(--padding-12);
+      padding: 16px var(--padding-12);
 
       .title {
         font-size: 26px;
@@ -23,19 +32,21 @@ import { afterNextRender, Component, DestroyRef, ElementRef, inject, input, sign
       }
     }
 
+    .sticky-sentinel {
+      position: absolute;
+      top: 0;
+      height: 1px;
+      width: 1px;
+    }
+
     .header-on-sticky {
       position: sticky;
       top: 0;
       z-index: 10;
 
       &.is-stuck {
-        padding-top: 12px;
         box-shadow: 0 10px 6px -4px var(--color-gray-200);
       }
-    }
-
-    .sticky-sentinel {
-      height: 1px;
     }
   `,
   template: `
@@ -53,9 +64,9 @@ import { afterNextRender, Component, DestroyRef, ElementRef, inject, input, sign
 })
 export class PageHeader {
   isSticky = input<boolean>(false);
-  isStuck = signal(false);
+  isStuck = signal<boolean>(false);
 
-  private stickySentinel = viewChild.required<ElementRef<HTMLElement>>('stickySentinel');
+  private stickySentinel= viewChild.required<ElementRef<HTMLElement>>('stickySentinel');
   private destroyRef = inject(DestroyRef);
 
   constructor() {

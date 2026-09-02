@@ -7,7 +7,6 @@ import { Component, input } from '@angular/core';
     section {
       display: flex;
       flex-direction: row;
-      margin-bottom: 10px;
       padding: var(--padding-12) var(--padding-12) 0 var(--padding-12);
 
       span {
