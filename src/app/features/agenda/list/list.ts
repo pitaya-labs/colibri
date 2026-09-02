@@ -5,6 +5,11 @@ import { PageContent } from '@shared-ui/page-structure/page-content';
 import { MatButton } from '@angular/material/button';
 import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow,
   MatHeaderRowDef, MatRow, MatRowDef, MatTable } from '@angular/material/table';
+import { MatFormField, MatInput, MatLabel, MatPrefix } from '@angular/material/input';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   imports: [
@@ -22,6 +27,16 @@ import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, Mat
     MatRow,
     MatRowDef,
     MatHeaderRowDef,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    MatInput,
+    MatPrefix,
+    DatePipe,
+    MatPaginator,
   ],
   selector: 'app-list',
   styleUrl: './list.css',
@@ -32,9 +47,24 @@ export default class List {
     {
       id: 1,
       time: new Date(),
-      name: 'item 1',
+      patient: 'Jose Perez',
+      reason: 'Dolor estomacal',
+      type: 'consulta',
+      doctor: 'Ana',
+      state: 'Abierta',
+      actions: '',
+    },
+    {
+      id: 1,
+      time: new Date(),
+      patient: 'Andrea Gonzales',
+      reason: 'Consulta regular',
+      type: 'consulta',
+      doctor: 'Pedro Perez',
+      state: 'Cerrada',
+      actions: '',
     },
   ];
 
-  displayedColumns: string[] = ['id', 'name'];
+  displayedColumns: string[] = ['time', 'patient', 'reason', 'type', 'doctor', 'state', 'actions'];
 }
