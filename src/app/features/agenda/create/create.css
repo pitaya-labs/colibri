@@ -1,0 +1,6 @@
+mat-option.hovered:hover {
+
+  div {
+    color: var(--color-primary);
+  }
+}

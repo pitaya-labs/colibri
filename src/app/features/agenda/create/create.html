@@ -1,0 +1,148 @@
+<page-container>
+  <page-breadcrumb [path]="['Agenda', 'Agendar cita']"></page-breadcrumb>
+  <page-header [isSticky]="true">
+    <div pageHeaderTitle class="flex items-center gap-2">
+      <span>Agendar cita</span>
+    </div>
+    <div pageHeaderInformation>Reserva previa al encuentro. No genera documento clínico.</div>
+    <div pageHeaderActions class="flex items-center gap-3">
+      <button matButton="outlined" class="button-small" routerLink="/agenda">Cancelar</button>
+      <button matButton="filled" class="button-small">
+        <div class="icon-with-text">
+          <span class="material-symbols-outlined">calendar_add_on</span>
+          Agendar cita
+        </div>
+      </button>
+    </div>
+  </page-header>
+
+  <page-content>
+
+    <section class="border-b border-b-surface-container-high space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Paciente</span>
+        <span class="text-error text-label-sm font-normal">Obligatorio</span>
+      </header>
+
+      @if (!selectedPatient()) {
+        <mat-form-field appearance="outline" class="form-field-compact w-1/2" subscriptSizing="dynamic">
+          <mat-label>Buscar paciente por nombre o expediente</mat-label>
+          <span class="material-symbols-outlined" matIconPrefix>search</span>
+          <input
+            matInput
+            [value]="searchQuery()"
+            (input)="onSearchInput($any($event.target).value)"
+            [matAutocomplete]="patientAuto"
+          >
+        </mat-form-field>
+
+        <mat-autocomplete #patientAuto="matAutocomplete" [displayWith]="displayPatient" (optionSelected)="onPatientSelected($event)">
+          @for (p of filteredPatients(); track p.id) {
+            <mat-option [value]="p">
+              <div class="font-medium">{{ p.nombre }}</div>
+              <div class="text-label-sm text-gray-400">{{ p.sexo }} · {{ p.edad }} años · Exp. {{ p.expediente }} · {{ p.telefono }}</div>
+            </mat-option>
+          }
+          <mat-option [value]="newPatientOption" class="hovered border-t border-t-gray-300">
+            <div class="w-full flex items-center gap-2">
+              <span class="text-label-sm">¿No aparece?</span>
+              <div class="button-small">
+                <div class="icon-with-text">
+                  <span class="material-symbols-outlined">person_add</span>
+                  Registrar paciente nuevo
+                </div>
+              </div>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      } @else {
+        <div class="w-1/2 flex items-center justify-between border border-primary bg-surface rounded-xl p-3 mb-3">
+          <div>
+            <div class="font-medium">{{ selectedPatient()!.nombre }}</div>
+            <div class="text-label-sm text-gray-400">{{ selectedPatient()!.sexo }} · {{ selectedPatient()!.edad }} a · Exp. {{ selectedPatient()!.expediente }} · {{ selectedPatient()!.telefono }}</div>
+          </div>
+          <button matButton (click)="clearPatient()">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      }
+    </section>
+
+    <section class="border-b border-b-surface-container-high py-2 space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Dónde y con quién</span>
+      </header>
+
+      <div class="flex gap-4 w-full">
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Consultorio</mat-label>
+          <mat-select>
+            <mat-option>Consultorio Norte</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact">
+          <mat-label>Médico (opcional)</mat-label>
+          <mat-select>
+            <mat-option>Cualquier médico disponible</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </section>
+
+    <section class="border-b border-b-surface-container-high py-2 space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Fecha y hora</span>
+      </header>
+
+      <div class="flex gap-4 w-1/2">
+        <mat-form-field appearance="outline" class="form-field-compact w-1/2">
+          <mat-label>Fecha *</mat-label>
+          <input matInput type="date">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-compact w-1/2">
+          <mat-label>Hora *</mat-label>
+          <input matInput type="time">
+        </mat-form-field>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-label-sm">Horarios libres:</span>
+        @for (h of horariosLibres; track h) {
+          <button
+            type="button"
+            class="button-toggle-compact rounded-lg border px-3 py-1 text-label-sm"
+            [class.border-primary]="selectedHorario() === h"
+            [class.bg-primary-container]="selectedHorario() === h"
+            [class.text-on-primary-container]="selectedHorario() === h"
+            [class.border-surface-container-highest]="selectedHorario() !== h"
+            (click)="selectHorario(h)"
+          >
+            {{ h }}
+          </button>
+        }
+        <span class="text-label-sm text-gray-400">Duración 30 min</span>
+      </div>
+    </section>
+
+    <section class="py-2 space-y-3 mb-4">
+      <header class="uppercase font-medium space-x-2">
+        <span class="text-primary">Motivo de la cita</span>
+        <span class="text-label-sm font-normal">(Opcional)</span>
+      </header>
+
+      <mat-form-field appearance="outline" class="w-[80%]">
+        <mat-label>Motivo (opcional)</mat-label>
+        <textarea rows="4" matInput></textarea>
+      </mat-form-field>
+
+      <div class="flex justify-start gap-4 bg-primary-container w-[80%] rounded-xl p-4">
+        <div>
+          <span class="material-symbols-outlined">info</span>
+        </div>
+        <div>Este dato es solo de referencia para la agenda; el médico documentará el detalle clínico durante la consulta.</div>
+      </div>
+    </section>
+  </page-content>
+</page-container>
