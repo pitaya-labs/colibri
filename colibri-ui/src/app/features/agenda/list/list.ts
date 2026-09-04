@@ -10,6 +10,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
+import { RouterLink } from '@angular/router';
 
 @Component({
   imports: [
@@ -17,6 +18,7 @@ import { MatPaginator } from '@angular/material/paginator';
     PageHeader,
     PageContent,
     MatButton,
+    RouterLink,
     MatTable,
     MatColumnDef,
     MatHeaderCell,

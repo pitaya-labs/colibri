@@ -32,4 +32,5 @@
   'download',
   'table_view',
   'lock',
+  'info',
 ];
