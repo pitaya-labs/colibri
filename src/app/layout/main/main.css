@@ -21,10 +21,13 @@ mat-sidenav-container {
 
   mat-sidenav {
     max-width: 190px;
+
+    &.collapsed {
+      max-width: 68px;
+    }
   }
 
   mat-sidenav-content {
     background-color: var(--color-surface-container-low);
   }
 }
-

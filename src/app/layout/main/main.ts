@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
@@ -28,4 +28,10 @@ import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@ang
   styleUrl: './main.css',
   templateUrl: './main.html',
 })
-export default class Main {}
+export default class Main {
+
+  isOpenedNavBar = signal(true);
+  toggleButton(): void {
+    this.isOpenedNavBar.update(val => !val);
+  }
+}

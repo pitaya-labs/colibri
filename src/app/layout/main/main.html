@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <button matIconButton>
+  <button matIconButton (click)="toggleButton()">
     <span class="material-symbols-outlined">menu</span>
   </button>
   <div class="icon">
@@ -32,8 +32,8 @@
     <span class="material-symbols-outlined filled">notifications</span>
   </div>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+<mat-sidenav-container autosize>
+  <mat-sidenav mode="side" opened="true" [class.collapsed]="!isOpenedNavBar()">
     <mat-nav-list>
       <mat-list-item routerLink="/agenda">
         <span class="material-symbols-outlined" matListItemIcon>event_note</span>
@@ -45,7 +45,7 @@
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="flex-1">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
