@@ -8,6 +8,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatButton } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
+import { ModalService } from '@shared-services/modal-service';
 
 interface Patient {
   id: number;
@@ -41,6 +42,7 @@ interface Patient {
 })
 export class Create {
   private router = inject(Router);
+  private readonly modalService: ModalService = inject(ModalService);
 
   patients: Patient[] = [
     { id: 1, nombre: 'Paciente A-0871', sexo: 'M', edad: 51, expediente: '871', telefono: '55 1234 5678' },
@@ -96,5 +98,11 @@ export class Create {
 
   selectHorario(horario: string) {
     this.selectedHorario.set(horario);
+  }
+
+  create(): void {
+    this.modalService
+      .showYesNoModal('La cita se creo correctamente', 'Quieres iniciar la consulta en este momento?')
+      .subscribe(result => console.log(result));
   }
 }
