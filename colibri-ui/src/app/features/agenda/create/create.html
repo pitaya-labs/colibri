@@ -7,7 +7,7 @@
     <div pageHeaderInformation>Reserva previa al encuentro. No genera documento clínico.</div>
     <div pageHeaderActions class="flex items-center gap-3">
       <button matButton="outlined" class="button-small" routerLink="/agenda">Cancelar</button>
-      <button matButton="filled" class="button-small">
+      <button matButton="filled" class="button-small" (click)="create()">
         <div class="icon-with-text">
           <span class="material-symbols-outlined">calendar_add_on</span>
           Crear la cita
