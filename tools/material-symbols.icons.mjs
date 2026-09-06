@@ -34,4 +34,5 @@
   'lock',
   'info',
   'error',
+  'help',
 ];

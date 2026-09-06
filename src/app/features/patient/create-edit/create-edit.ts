@@ -7,8 +7,7 @@ import { MatFormField, MatHint, MatInput, MatLabel, MatPrefix } from '@angular/m
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { PageErrorModal } from '@shared-ui/page-error-modal/page-error-modal';
+import { ModalService } from '@shared-services/modal-service';
 
 @Component({
   imports: [
@@ -31,17 +30,11 @@ import { PageErrorModal } from '@shared-ui/page-error-modal/page-error-modal';
   templateUrl: './create-edit.html',
 })
 export class CreateEdit {
-
-  private readonly dialog: MatDialog = inject(MatDialog);
+  private readonly modalService: ModalService = inject(ModalService);
 
   onSave(): void {
-    this.dialog.open(PageErrorModal, {
-      data: {
-        title: 'Create new edit',
-        body: 'Create new edit',
-      },
-      hasBackdrop: true,
-      disableClose: true,
-    })
+    this.modalService
+      .showYesNoModal('Paciente Creado Correctamente', 'Queires iniciar la consulta en este momento?')
+      .subscribe(result => console.log(result));
   }
 }
