@@ -1,0 +1,16 @@
+<div class="relative w-full max-w-110 overflow-hidden bg-surface-container-lowest border border-surface-container-highest rounded-[28px]">
+  <div class="flex flex-col items-center px-8 pt-10 pb-6 text-center">
+    <div class="relative mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-red-200 text-red-600">
+      <span class="material-symbols-outlined text-headline-lg">error</span>
+    </div>
+    <h3 class="text-xl font-bold leading-tight text-gray-900">
+      {{ data.title }}
+    </h3>
+    <p class="text-[15px] leading-relaxed text-gray-600">
+      {{ data.body }}
+    </p>
+  </div>
+  <div class="bg-surface-container-lowest px-8 py-5 flex justify-center border-t border-gray-100">
+    <button matButton="filled" class="success-dark w-full" mat-dialog-close> Entendido </button>
+  </div>
+</div>
