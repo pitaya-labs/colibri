@@ -33,4 +33,5 @@
   'table_view',
   'lock',
   'info',
+  'error',
 ];

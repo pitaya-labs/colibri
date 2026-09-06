@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PageContainer } from '@shared-ui/page-structure/page-container';
 import { PageHeader } from '@shared-ui/page-structure/page-header';
 import { PageContent } from '@shared-ui/page-structure/page-content';
@@ -7,6 +7,8 @@ import { MatFormField, MatHint, MatInput, MatLabel, MatPrefix } from '@angular/m
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { PageErrorModal } from '@shared-ui/page-error-modal/page-error-modal';
 
 @Component({
   imports: [
@@ -28,4 +30,18 @@ import { RouterLink } from '@angular/router';
   styleUrl: './create-edit.css',
   templateUrl: './create-edit.html',
 })
-export class CreateEdit {}
+export class CreateEdit {
+
+  private readonly dialog: MatDialog = inject(MatDialog);
+
+  onSave(): void {
+    this.dialog.open(PageErrorModal, {
+      data: {
+        title: 'Create new edit',
+        body: 'Create new edit',
+      },
+      hasBackdrop: true,
+      disableClose: true,
+    })
+  }
+}

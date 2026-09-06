@@ -5,7 +5,7 @@
     <div pageHeaderInformation>Registro de alta · los campos marcados como (opcional) pueden completarse después desde el expediente.</div>
     <div pageHeaderActions class="flex gap-2">
       <button matButton="outlined" class="button-small" routerLink="/patients">Cancelar</button>
-      <button matButton="filled" class="button-small">
+      <button matButton="filled" class="button-small" (click)="onSave()">
         <div class="icon-with-text">
           <span class="material-symbols-outlined">person_add</span>
           Guardar
@@ -22,39 +22,44 @@
         <span class="text-error text-label-sm font-normal">Obligatorio</span>
       </header>
 
-      <form class="flex flex-col gap-2 w-1/2">
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Primer Nombre *</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+      <form class="flex flex-col gap-2 w-full">
+        <div aria-description="patient personal data" class="flex flex-wrap gap-5 justify-between">
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Primer Nombre *</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Apellido Paterno *</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Apellido Paterno *</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Apellido Materno *</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Apellido Materno *</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Fecha de Nacimiento *</mat-label>
-          <input matInput type="date">
-        </mat-form-field>
+        <div aria-description="patient personal data second line" class="flex gap-5 justify-between mb-6">
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Fecha de Nacimiento *</mat-label>
+            <input matInput type="date">
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Sexo Registrado *</mat-label>
-          <mat-select>
-            <mat-option>Masculino</mat-option>
-            <mat-option>Femenino</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Sexo Registrado *</mat-label>
+            <mat-select>
+              <mat-option>Masculino</mat-option>
+              <mat-option>Femenino</mat-option>
+            </mat-select>
+            <mat-hint class="text-label-sm text-gray-400">Dato registrado legalmente para el expediente; distinto de identidad de género.</mat-hint>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>CURP (opcional)</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>CURP (opcional)</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
+        </div>
       </form>
     </section>
 
@@ -64,34 +69,37 @@
         <span class="text-error text-label-sm font-normal">Telefono Obligatorio</span>
       </header>
 
-      <form class="flex flex-col gap-2 w-1/2">
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Telefono Principal *</mat-label>
-          <input matInput type="tel">
-        </mat-form-field>
+      <form class="flex flex-col gap-2 w-full">
+        <div class="flex gap-5 justify-between">
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Telefono Principal *</mat-label>
+            <input matInput type="tel">
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Correo Electronico (opcional)</mat-label>
-          <input matInput type="email">
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Correo Electronico (opcional)</mat-label>
+            <input matInput type="email">
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Codigo Postal (opcional)</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+        <div class="flex gap-5 justify-between">
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Codigo Postal (opcional)</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Municipio (automatico)</mat-label>
-          <span class="material-symbols-outlined" matIconPrefix>lock</span>
-          <input matInput type="text" disabled>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Municipio (automatico)</mat-label>
+            <span class="material-symbols-outlined" matIconPrefix>lock</span>
+            <input matInput type="text" disabled>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Estado (automatico)</mat-label>
-          <span class="material-symbols-outlined" matIconPrefix>lock</span>
-          <input matInput type="text" disabled>
-        </mat-form-field>
-
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Estado (automatico)</mat-label>
+            <span class="material-symbols-outlined" matIconPrefix>lock</span>
+            <input matInput type="text" disabled>
+          </mat-form-field>
+        </div>
       </form>
     </section>
 
@@ -101,22 +109,24 @@
         <span class="text-label-sm font-normal">Opcional</span>
       </header>
 
-      <form class="flex flex-col gap-2 w-1/2">
+      <form class="flex flex-col gap-2 w-full">
         <mat-form-field appearance="outline" class="form-field-compact mb-4">
           <mat-label>Alergias Conocidas (opcional)</mat-label>
           <input matInput type="text">
           <mat-hint class="text-label-sm text-gray-400">Puede completarse o corregirse desde el expediente en cualquier momento.</mat-hint>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Contacto Emergencia - nombre (opcional)</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+        <div class="flex justify-between gap-5">
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Contacto Emergencia - nombre (opcional)</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-compact">
-          <mat-label>Contacto Emergencia - telefono (opcional)</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-compact grow">
+            <mat-label>Contacto Emergencia - telefono (opcional)</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
+        </div>
 
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Observaciones del registro(opcional)</mat-label>
