@@ -4,5 +4,7 @@ export interface PageModalModel {
   type: PageModalType;
   title: string;
   body: string;
+  yesText?: string;
+  noText?: string;
 }
 

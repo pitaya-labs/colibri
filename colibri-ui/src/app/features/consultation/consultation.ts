@@ -136,6 +136,7 @@ export default class Consultation {
         'La acción es irreversible: el documento quedará bloqueado de forma permanente y no ' +
           'podrá editarse ni eliminarse por ninguna vía. Las correcciones posteriores se ' +
           'registran como una adenda vinculada. ¿Deseas finalizar y bloquear la nota?',
+        'Si, finalizar y bloquear'
       )
       .subscribe((confirmed) => console.log('finalizar nota', confirmed));
   }
