@@ -1,5 +1,5 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
 import { PageContainer } from '@shared-ui/page-structure/page-container';
@@ -66,6 +66,7 @@ export interface Cie10Entry {
 })
 export default class Consultation {
   private readonly modalService = inject(ModalService);
+  private readonly router: Router = inject(Router);
 
   readonly savedSecondsAgo = 12;
 
@@ -305,7 +306,11 @@ export default class Consultation {
           'registran como una adenda vinculada. ¿Deseas finalizar y bloquear la nota?',
         'Si, finalizar y bloquear',
       )
-      .subscribe((confirmed) => console.log('finalizar nota', confirmed));
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.router.navigate(['/agenda'])
+        }
+      });
   }
 
   displayFn(item: Cie10Entry | null): string {

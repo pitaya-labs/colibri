@@ -44,6 +44,11 @@
   'error',
   'help',
 
+  //agenda
+  'start',
+  'open_in_new',
+  'notes',
+
   // Clinical note
   'cloud_done',
   'monitor_heart',
