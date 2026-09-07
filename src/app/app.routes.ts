@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import consultationRoutes from './features/consultation/routes';
 
 export const routes: Routes = [
   {
@@ -21,7 +20,7 @@ export const routes: Routes = [
       },
       {
         path: 'consultation',
-        loadChildren: () => consultationRoutes,
+        loadChildren: () => import('./features/consultation/routes'),
       },
     ],
   },
