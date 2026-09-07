@@ -11,5 +11,7 @@
   gap: 8px;
 }
 
-
+.material-symbols-outlined.icon-sm { font-size: 18px; }
+.material-symbols-outlined.icon-md { font-size: 20px; }
+.material-symbols-outlined.icon-lg { font-size: 32px; }
 

@@ -11,6 +11,7 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { DatePipe } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { RouterLink } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   imports: [
@@ -39,6 +40,7 @@ import { RouterLink } from '@angular/router';
     MatPrefix,
     DatePipe,
     MatPaginator,
+    MatTooltip,
   ],
   selector: 'app-list',
   styleUrl: './list.css',
