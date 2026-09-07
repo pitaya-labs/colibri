@@ -1,17 +1,13 @@
 <page-container>
-  <page-breadcrumb [path]="['Consulta 26 ago, 08:30', 'Nota clínica (borrador)']"></page-breadcrumb>
+<!--  <page-breadcrumb [path]="['Consulta 26 ago, 08:30', 'Nota clínica (borrador)']"></page-breadcrumb>-->
 
   <page-header [isSticky]="true">
     <div pageHeaderTitle class="flex items-center gap-3">
       <span>Nota clínica</span>
       <span
-        class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-label-md font-medium bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)"
-      >
-        <span class="material-symbols-outlined text-base">edit</span>
-        Borrador
-      </span>
+        class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-label-md font-medium bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)">
+        <span class="material-symbols-outlined text-base">edit</span> Borrador </span>
     </div>
-    <div pageHeaderInformation>Borrador v0 · visible solo para el autor hasta finalizar.</div>
     <div pageHeaderActions class="flex items-center gap-3">
       <button matButton="outlined" class="button-small button-secondary" (click)="saveDraft()">
         <div class="icon-with-text">
@@ -30,18 +26,13 @@
 
   <page-content>
     <div class="max-w-290 mx-auto">
-      <div
-        class="flex items-center gap-2 flex-wrap rounded-xl px-block-sm py-3 mb-4 text-body-sm bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)"
-      >
+      <div class="flex items-center gap-2 flex-wrap rounded-xl px-block-sm py-3 mb-4 text-body-sm bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)">
         <span class="material-symbols-outlined text-base">cloud_done</span>
         <span>Guardado automático hace {{ savedSecondsAgo }} s · sin cambios pendientes</span>
         <div class="flex-1"></div>
         <span>Borrador v0 · visible solo para el autor hasta finalizar</span>
       </div>
-
-      <section
-        class="bg-surface border border-surface-container-highest border-l-4 border-l-(--mat-app-doc-borrador) rounded-xl p-block-lg mb-4"
-      >
+      <section class="bg-surface border border-surface-container-highest border-l-4 border-l-(--mat-app-doc-borrador) rounded-xl p-block-lg mb-4">
         <div class="flex items-center gap-2 text-body-sm text-gray-400 mb-4">
           <span class="material-symbols-outlined text-base">lock</span>
           <span>
@@ -68,307 +59,300 @@
           </div>
         </div>
       </section>
+    </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_296px] gap-block-sm items-start">
-        <div class="flex flex-col gap-block-sm">
-          <section
-            class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-3"
-          >
-            <header class="uppercase font-medium space-x-2">
-              <span class="text-primary">Evolución / padecimiento actual</span>
-              <span class="text-error text-label-sm font-normal">Obligatorio</span>
-            </header>
-            <p class="text-body-sm text-gray-400">
-              DAT-034 · evolución, exploración y hallazgos de esta consulta.
-            </p>
-            <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
-              <mat-label>Evolución / padecimiento actual *</mat-label>
-              <textarea
-                matInput
-                rows="4"
-                [value]="evolution()"
-                (input)="onEvolutionInput($any($event.target).value)"
-              ></textarea>
-            </mat-form-field>
-            <p class="text-body-sm text-gray-400">{{ evolutionLength() }} caracteres</p>
-          </section>
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_296px] gap-block-sm items-start">
+      <div class="flex flex-col gap-block-sm mb-8">
+        <section class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-3">
+          <header class="uppercase font-medium space-x-2">
+            <span class="text-primary">Evolución / padecimiento actual</span>
+            <span class="text-error text-label-sm font-normal">Obligatorio</span>
+          </header>
+          <p class="text-body-sm text-gray-400">
+            Evolución, exploración y hallazgos de esta consulta.
+          </p>
+          <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+            <mat-label>Evolución / padecimiento actual *</mat-label>
+            <textarea
+              matInput
+              rows="10"
+              [value]="evolution()"
+              (input)="onEvolutionInput($any($event.target).value)"
+            ></textarea>
+          </mat-form-field>
+          <p class="text-body-sm text-gray-400">{{ evolutionLength() }} caracteres</p>
+        </section>
 
-          <section
-            class="bg-surface border border-surface-container-highest rounded-xl overflow-hidden"
-          >
-            <button
-              type="button"
-              class="w-full flex items-center gap-3 px-block-lg py-4 text-left"
-              (click)="toggleVitals()"
-            >
+        <mat-expansion-panel class="border border-surface-container-highest" expanded="true">
+          <mat-expansion-panel-header>
+            <header class="flex items-center text-body-md uppercase font-medium space-x-2">
               <span class="material-symbols-outlined text-primary">monitor_heart</span>
-              <span class="flex flex-col">
-                <span class="uppercase font-medium text-primary">Signos vitales</span>
-                <span class="text-body-sm text-gray-400 font-normal">
-                  Opcional · no bloquea la finalización
-                </span>
-              </span>
-              <span class="flex-1"></span>
-              @if (!vitalsOpen()) {
-                <span class="text-body-sm text-gray-400">{{ vitalsSummary }}</span>
-              }
-              <span class="material-symbols-outlined text-gray-400">
-                {{ vitalsOpen() ? 'expand_less' : 'expand_more' }}
-              </span>
-            </button>
-            @if (vitalsOpen()) {
-              <div
-                class="grid grid-cols-2 md:grid-cols-3 gap-block-sm px-block-lg pb-block-lg pt-1"
-              >
-                @for (vital of vitals; track vital.label) {
-                  <div
-                    class="flex items-center justify-between gap-2 border border-surface-container-highest rounded px-3 h-13"
-                  >
-                    <span class="flex flex-col">
-                      <span class="text-label-sm text-gray-400">{{ vital.label }}</span>
-                      <span>{{ vital.value }}</span>
-                    </span>
-                    <span class="text-body-sm text-gray-400">{{ vital.unit }}</span>
-                  </div>
-                }
-              </div>
-            }
-          </section>
-
-          <section
-            class="bg-surface border border-surface-container-highest rounded-xl overflow-hidden"
-          >
-            <button
-              type="button"
-              class="w-full flex items-center gap-3 px-block-lg py-4 text-left"
-              (click)="toggleStudies()"
-            >
-              <span class="material-symbols-outlined text-primary">attach_file</span>
-              <span class="flex flex-col">
-                <span class="uppercase font-medium text-primary">Estudios relevantes</span>
-                <span class="text-body-sm text-gray-400 font-normal">
-                  Opcional · vincula adjuntos ya cargados al expediente
-                </span>
-              </span>
-              <span class="flex-1"></span>
-              @if (!studiesOpen()) {
-                <span class="text-body-sm text-gray-400">
-                  {{ linkedStudies().length }} estudio(s) vinculado(s)
-                </span>
-              }
-              <span class="material-symbols-outlined text-gray-400">
-                {{ studiesOpen() ? 'expand_less' : 'expand_more' }}
-              </span>
-            </button>
-            @if (studiesOpen()) {
-              <div class="px-block-lg pb-block-lg pt-1 space-y-2">
-                <div
-                  class="flex flex-wrap items-center gap-2 border border-surface-container-highest rounded p-3 min-h-13"
-                >
-                  @for (study of linkedStudies(); track study) {
-                    <span
-                      class="inline-flex items-center gap-1 rounded-lg border border-secondary bg-secondary-container text-on-secondary-container px-2 py-0.5 text-label-sm"
-                    >
-                      <span class="material-symbols-outlined text-base">image</span>
-                      {{ study }}
-                      <button type="button" class="flex items-center" (click)="removeStudy(study)">
-                        <span class="material-symbols-outlined text-base">cancel</span>
-                      </button>
-                    </span>
-                  }
-                  <span class="text-body-sm text-gray-400">Buscar por tipo o fecha…</span>
-                </div>
-                <p class="text-body-sm text-gray-400">
-                  Solo se vinculan archivos existentes; la carga de nuevos adjuntos se hace desde el
-                  expediente.
-                </p>
-              </div>
-            }
-          </section>
-
-          <section
-            class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-3"
-          >
-            <header class="uppercase font-medium space-x-2">
-              <span class="text-primary">Diagnóstico(s)</span>
-              <span class="text-error text-label-sm font-normal">Obligatorio</span>
+              <span class="text-primary">Signos vitales</span>
+              <span class="text-body-sm text-gray-400 font-normal">Opcional</span>
             </header>
-            <p class="text-body-sm text-gray-400">
-              Uno o más. Búsqueda por descripción o clave CIE-10.
-            </p>
-            <div
-              class="flex flex-wrap items-center gap-2 border border-surface-container-highest rounded p-3 min-h-14"
-            >
-              @for (dx of diagnoses(); track dx) {
+          </mat-expansion-panel-header>
+          <form class="flex flex-col gap-2">
+            <div class="flex flex-row flex-nowrap gap-5">
+              <mat-form-field appearance="outline" floatLabel="always" class="form-field-compact grow">
+                <mat-label>Tension arterial</mat-label>
+                <span matSuffix class="text-xs">mmHg</span>
+                <input matInput type="text">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always" class="form-field-compact grow">
+                <mat-label>Frecuencia cardiaca</mat-label>
+                <span matSuffix class="text-xs">lpm</span>
+                <input matInput type="text">
+              </mat-form-field>
+            </div>
+
+            <div class="flex flex-row flex-nowrap gap-5">
+              <mat-form-field appearance="outline" floatLabel="always" class="form-field-compact grow">
+                <mat-label>Frecuencia respiratoria</mat-label>
+                <span matSuffix class="text-xs">rpm</span>
+                <input matInput type="text">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always" class="form-field-compact grow">
+                <mat-label>Temperatura</mat-label>
+                <span matSuffix class="text-xs">ᵒC</span>
+                <input matInput type="text">
+              </mat-form-field>
+            </div>
+
+            <div class="flex flex-row flex-nowrap gap-5">
+              <mat-form-field appearance="outline" floatLabel="always" class="form-field-compact grow">
+                <mat-label>Peso</mat-label>
+                <span matSuffix class="text-xs">kg</span>
+                <input matInput type="text">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" floatLabel="always" class="form-field-compact grow">
+                <mat-label>Talla</mat-label>
+                <span matSuffix class="text-xs">cm</span>
+                <input matInput type="text">
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="border border-surface-container-highest" expanded="true">
+          <mat-expansion-panel-header>
+            <header class="flex items-center text-body-md uppercase font-medium space-x-2">
+              <span class="material-symbols-outlined text-primary">attach_file</span>
+              <span class="text-primary">Estudios relevantes</span>
+              <span class="text-body-sm text-gray-400 font-normal">Opcional</span>
+            </header>
+          </mat-expansion-panel-header>
+          <div class="pb-block-lg pt-1 space-y-2">
+            <div class="flex flex-wrap items-center gap-2 border border-surface-container-highest rounded p-3 min-h-13">
+              @for (study of linkedStudies(); track study) {
                 <span
                   class="inline-flex items-center gap-1 rounded-lg border border-secondary bg-secondary-container text-on-secondary-container px-2 py-0.5 text-label-sm"
                 >
-                  {{ dx }}
-                  <button type="button" class="flex items-center" (click)="removeDiagnosis(dx)">
-                    <span class="material-symbols-outlined text-base">cancel</span>
-                  </button>
-                </span>
+                      <span class="material-symbols-outlined text-base">image</span>
+                  {{ study }}
+                  <button type="button" class="flex items-center" (click)="removeStudy(study)">
+                        <span class="material-symbols-outlined text-base">cancel</span>
+                      </button>
+                    </span>
               }
-              <span class="text-body-sm text-gray-400">Escribe para buscar…</span>
-            </div>
-          </section>
-
-          <section
-            class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-4"
-          >
-            <header class="uppercase font-medium space-x-2">
-              <span class="text-primary">Pronóstico</span>
-              <span class="text-error text-label-sm font-normal">Obligatorio</span>
-            </header>
-            <div class="flex gap-2 flex-wrap">
-              @for (opt of prognosisOptions; track opt.value) {
-                <button
-                  type="button"
-                  class="button-toggle-compact rounded-lg border px-3 py-1 text-label-sm"
-                  [class.border-primary]="prognosis() === opt.value"
-                  [class.bg-primary-container]="prognosis() === opt.value"
-                  [class.text-on-primary-container]="prognosis() === opt.value"
-                  [class.border-surface-container-highest]="prognosis() !== opt.value"
-                  (click)="setPrognosis(opt.value)"
-                >
-                  <span class="icon-with-text">
-                    <span class="material-symbols-outlined text-base">{{ opt.icon }}</span>
-                    {{ opt.label }}
-                  </span>
-                </button>
-              }
-            </div>
-            <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
-              <mat-label>Nota breve del pronóstico (opcional)</mat-label>
-              <textarea
-                matInput
-                rows="2"
-                [value]="prognosisNote()"
-                (input)="onPrognosisNoteInput($any($event.target).value)"
-              ></textarea>
-            </mat-form-field>
-          </section>
-
-          <section
-            class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-3"
-          >
-            <header class="uppercase font-medium space-x-2">
-              <span class="text-primary">Tratamiento / indicaciones</span>
-              <span class="text-error text-label-sm font-normal">Obligatorio</span>
-            </header>
-            <p class="text-body-sm text-gray-400">Indicaciones que se entregan al paciente.</p>
-            <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
-              <mat-label>Tratamiento / indicaciones *</mat-label>
-              <textarea
-                matInput
-                rows="4"
-                [value]="treatment()"
-                (input)="onTreatmentInput($any($event.target).value)"
-              ></textarea>
-            </mat-form-field>
-            <div class="flex gap-2 flex-wrap">
-              <button matButton="outlined" class="button-small">
-                <div class="icon-with-text">
-                  <span class="material-symbols-outlined">add</span>
-                  Agregar receta
-                </div>
-              </button>
-              <button matButton="outlined" class="button-small">
-                <div class="icon-with-text">
-                  <span class="material-symbols-outlined">add</span>
-                  Solicitar estudios
-                </div>
-              </button>
-              <button matButton="outlined" class="button-small">
-                <div class="icon-with-text">
-                  <span class="material-symbols-outlined">event</span>
-                  Programar cita de control
-                </div>
-              </button>
-            </div>
-          </section>
-        </div>
-
-        <aside class="flex flex-col gap-block-sm lg:sticky lg:top-0">
-          <section class="bg-surface border border-surface-container-highest rounded-xl p-block-sm">
-            <h2 class="font-medium mb-3">Estado del documento</h2>
-            <div class="flex flex-col gap-2 text-body-sm">
-              <div class="flex justify-between gap-2">
-                <span class="text-gray-400">Estado</span>
-                <span class="font-medium text-(--mat-app-on-doc-borrador-container)">
-                  Borrador (editable)
-                </span>
-              </div>
-              <div class="flex justify-between gap-2">
-                <span class="text-gray-400">Creado</span>
-                <span>{{ createdAt }}</span>
-              </div>
-              <div class="flex justify-between gap-2">
-                <span class="text-gray-400">Último guardado</span>
-                <span>hace {{ savedSecondsAgo }} s</span>
-              </div>
-              <div class="flex justify-between gap-2">
-                <span class="text-gray-400">Autor</span>
-                <span>{{ authorDoctor }}</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="bg-surface border border-surface-container-highest rounded-xl p-block-sm">
-            <h2 class="font-medium mb-3">Requisitos para finalizar</h2>
-            <div class="flex flex-col gap-2 text-body-sm">
-              <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
-                <span class="material-symbols-outlined text-base">check_circle</span>
-                Evolución capturada
-              </div>
-              <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
-                <span class="material-symbols-outlined text-base">check_circle</span>
-                Al menos un diagnóstico
-              </div>
-              <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
-                <span class="material-symbols-outlined text-base">check_circle</span>
-                Pronóstico seleccionado
-              </div>
-              <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
-                <span class="material-symbols-outlined text-base">check_circle</span>
-                Tratamiento e indicaciones
-              </div>
-              <div class="h-px bg-surface-container-highest my-1"></div>
-              <div class="flex items-center gap-2 text-gray-400">
-                <span class="material-symbols-outlined text-base">remove_circle_outline</span>
-                Signos vitales — opcional
-              </div>
-              <div class="flex items-center gap-2 text-gray-400">
-                <span class="material-symbols-outlined text-base">remove_circle_outline</span>
-                Estudios relevantes — opcional
-              </div>
-            </div>
-            <p class="text-body-sm text-gray-400 mt-3">
-              Al finalizar, el documento queda bloqueado de forma permanente. Las correcciones
-              posteriores se registran como adenda.
-            </p>
-          </section>
-
-          <section
-            class="bg-surface-container-low border border-surface-container-highest rounded-xl p-block-sm"
-          >
-            <div class="flex items-center gap-2 mb-2">
-              <span class="material-symbols-outlined text-base text-gray-400">lock</span>
-              <h2 class="font-medium">Datos de la consulta</h2>
+              <span class="text-body-sm text-gray-400">Buscar por tipo o fecha…</span>
             </div>
             <p class="text-body-sm text-gray-400">
-              Paciente, motivo y horario pertenecen a la consulta, no a la nota. Para corregirlos:
+              Solo se vinculan archivos existentes; la carga de nuevos adjuntos se hace desde el
+              expediente.
             </p>
-            <a
-              routerLink="/agenda"
-              class="inline-flex items-center gap-1 mt-2 text-body-sm text-secondary font-medium"
-            >
-              Ir al detalle de la consulta
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </a>
-          </section>
-        </aside>
+          </div>
+        </mat-expansion-panel>
+
+        <section class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-3">
+          <header class="uppercase font-medium space-x-2">
+            <span class="text-primary">Diagnóstico(s)</span>
+            <span class="text-error text-label-sm font-normal">Obligatorio</span>
+          </header>
+          <p class="text-body-sm text-gray-400"> Uno o más. Búsqueda por descripción o clave CIE-10. </p>
+
+          <div class="flex gap-2 flex-wrap">
+            @for (dx of diagnoses(); track dx) {
+              <span class="inline-flex items-center gap-1 rounded-lg border border-secondary bg-secondary-container text-on-secondary-container px-2 py-0.5 text-label-sm">
+                  {{ dx }}
+                <button type="button" class="flex items-center" (click)="removeDiagnosis(dx)" matRipple>
+                    <span class="material-symbols-outlined text-base">cancel</span>
+                </button>
+              </span>
+            }
+          </div>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <input matInput placeholder="Escribe para buscar..." [matAutocomplete]="auto" [formControl]="searchControl" />
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelected($event)">
+              @for (item of filteredCatalog(); track item.code) {
+                <mat-option [value]="item">
+                  <span class="font-bold mr-2">{{ item.code }}</span>
+                  <span>{{ item.description }}</span>
+                </mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+
+        </section>
+
+        <section class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-4">
+          <header class="uppercase font-medium space-x-2">
+            <span class="text-primary">Pronóstico</span>
+            <span class="text-error text-label-sm font-normal">Obligatorio</span>
+          </header>
+
+          <mat-button-toggle-group class="button-toggle-compact">
+            <mat-button-toggle value="bold">
+              <span class="icon-with-text">
+                <span class="material-symbols-outlined text-base">trending_up</span>
+                Bueno
+              </span>
+            </mat-button-toggle>
+            <mat-button-toggle value="italic">
+              <span class="icon-with-text">
+                <span class="material-symbols-outlined text-base">trending_flat</span>
+                Reservado
+              </span>
+            </mat-button-toggle>
+            <mat-button-toggle value="underline">
+              <span class="icon-with-text">
+                <span class="material-symbols-outlined text-base">trending_down</span>
+                Malo
+              </span>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+            <mat-label>Nota breve del pronóstico (opcional)</mat-label>
+            <textarea
+              matInput
+              rows="2"
+              [value]="prognosisNote()"
+              (input)="onPrognosisNoteInput($any($event.target).value)"
+            ></textarea>
+          </mat-form-field>
+        </section>
+
+        <section class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-3">
+          <header class="uppercase font-medium space-x-2">
+            <span class="text-primary">Tratamiento / indicaciones</span>
+            <span class="text-error text-label-sm font-normal">Obligatorio</span>
+          </header>
+          <p class="text-body-sm text-gray-400">Indicaciones que se entregan al paciente.</p>
+          <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+            <mat-label>Tratamiento / indicaciones *</mat-label>
+            <textarea
+              matInput
+              rows="4"
+              [value]="treatment()"
+              (input)="onTreatmentInput($any($event.target).value)"
+            ></textarea>
+          </mat-form-field>
+          <div class="flex gap-2 flex-wrap">
+            <button matButton="outlined" class="button-small">
+              <div class="icon-with-text">
+                <span class="material-symbols-outlined">add</span>
+                Agregar receta
+              </div>
+            </button>
+            <button matButton="outlined" class="button-small">
+              <div class="icon-with-text">
+                <span class="material-symbols-outlined">add</span>
+                Solicitar estudios
+              </div>
+            </button>
+            <button matButton="outlined" class="button-small">
+              <div class="icon-with-text">
+                <span class="material-symbols-outlined">event</span>
+                Programar cita de control
+              </div>
+            </button>
+          </div>
+        </section>
       </div>
+
+      <aside class="flex flex-col gap-block-sm lg:sticky lg:top-0">
+        <section class="bg-surface border border-surface-container-highest rounded-xl p-block-sm">
+          <h2 class="font-medium mb-3">Estado del documento</h2>
+          <div class="flex flex-col gap-2 text-body-sm">
+            <div class="flex justify-between gap-2">
+              <span class="text-gray-400">Estado</span>
+              <span class="font-medium text-(--mat-app-on-doc-borrador-container)">
+                  Borrador (editable)
+                </span>
+            </div>
+            <div class="flex justify-between gap-2">
+              <span class="text-gray-400">Creado</span>
+              <span>{{ createdAt }}</span>
+            </div>
+            <div class="flex justify-between gap-2">
+              <span class="text-gray-400">Último guardado</span>
+              <span>hace {{ savedSecondsAgo }} s</span>
+            </div>
+            <div class="flex justify-between gap-2">
+              <span class="text-gray-400">Autor</span>
+              <span>{{ authorDoctor }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-surface border border-surface-container-highest rounded-xl p-block-sm">
+          <h2 class="font-medium mb-3">Requisitos para finalizar</h2>
+          <div class="flex flex-col gap-2 text-body-sm">
+            <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              Evolución capturada
+            </div>
+            <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              Al menos un diagnóstico
+            </div>
+            <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              Pronóstico seleccionado
+            </div>
+            <div class="flex items-center gap-2 text-(--mat-app-doc-finalizado)">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              Tratamiento e indicaciones
+            </div>
+            <div class="h-px bg-surface-container-highest my-1"></div>
+            <div class="flex items-center gap-2 text-gray-400">
+              <span class="material-symbols-outlined text-base">remove_circle_outline</span>
+              Signos vitales — opcional
+            </div>
+            <div class="flex items-center gap-2 text-gray-400">
+              <span class="material-symbols-outlined text-base">remove_circle_outline</span>
+              Estudios relevantes — opcional
+            </div>
+          </div>
+          <p class="text-body-sm text-gray-400 mt-3">
+            Al finalizar, el documento queda bloqueado de forma permanente. Las correcciones
+            posteriores se registran como adenda.
+          </p>
+        </section>
+
+        <section
+          class="bg-surface-container-low border border-surface-container-highest rounded-xl p-block-sm"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-base text-gray-400">lock</span>
+            <h2 class="font-medium">Datos de la consulta</h2>
+          </div>
+          <p class="text-body-sm text-gray-400">
+            Paciente, motivo y horario pertenecen a la consulta, no a la nota. Para corregirlos:
+          </p>
+          <a
+            routerLink="/agenda"
+            class="inline-flex items-center gap-1 mt-2 text-body-sm text-secondary font-medium"
+          >
+            Ir al detalle de la consulta
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </a>
+        </section>
+      </aside>
     </div>
   </page-content>
 </page-container>

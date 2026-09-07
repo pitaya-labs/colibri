@@ -94,6 +94,11 @@
     ));
   }
 
+  // expansino panel
+  @include mat.expansion-overrides((
+    container-elevation-shadow: none
+  ));
+
   // Mat-form-field Component
   .form-field-compact {
     .mat-mdc-text-field-wrapper {
