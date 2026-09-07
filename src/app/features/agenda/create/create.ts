@@ -103,6 +103,10 @@ export class Create {
   create(): void {
     this.modalService
       .showYesNoModal('La cita se creo correctamente', 'Quieres iniciar la consulta en este momento?')
-      .subscribe(result => console.log(result));
+      .subscribe(result => {
+        if (result) {
+          this.router.navigate(['/consultation']);
+        }
+      });
   }
 }

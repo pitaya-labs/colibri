@@ -49,13 +49,13 @@
           {{ data.title }}
         </h3>
       </div>
-      <p class="text-[15px] leading-relaxed text-gray-600">
+      <p class="text-[15px] leading-relaxed text-gray-600 text-justify">
         {{ data.body }}
       </p>
     </div>
     <div class="bg-gray-50 px-8 py-5 flex justify-between border-t border-gray-100">
-      <button matButton="text" (click)="onNoClick()">No</button>
-      <button matButton="filled" [mat-dialog-close]="true">Si</button>
+      <button matButton="text" (click)="onNoClick()">{{ data.noText }}</button>
+      <button matButton="filled" [mat-dialog-close]="true">{{ data.yesText }}</button>
     </div>
   </div>
 </ng-template>
