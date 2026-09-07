@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
-import Consultation from './consultation';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '',
     pathMatch: 'full',
+    loadComponent: () => import('./consultation'),
   },
   {
-    path: '',
-    loadComponent: () => Consultation,
+    path: 'detail',
+    loadComponent: () => import('./detail/detail'),
   },
 ];
 

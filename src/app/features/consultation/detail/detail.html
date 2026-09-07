@@ -1,0 +1,142 @@
+<page-container>
+  <page-breadcrumb [path]="['Agenda', 'Consulta del 26 ago 2026, 08:30']"></page-breadcrumb>
+
+  <page-header [isSticky]="true">
+    <div pageHeaderTitle class="flex items-center gap-3">
+      <span
+        class="w-11 h-11 flex-none rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-title-md font-medium"
+        >{{ patientInitials }}</span
+      >
+      <span>{{ patientName }}</span>
+      <span
+        class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-label-md font-medium bg-(--mat-app-consulta-abierta-container) text-(--mat-app-on-consulta-abierta-container)"
+      >
+        <span class="w-2 h-2 rounded-full bg-(--mat-app-consulta-abierta)"></span>
+        Abierta
+      </span>
+    </div>
+    <div pageHeaderInformation>{{ demographics }}</div>
+  </page-header>
+
+  <page-content>
+    <div class="max-w-290 mx-auto">
+      <section
+        class="bg-surface border border-surface-container-highest rounded-xl p-block-lg mb-4"
+      >
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-block-sm">
+          @for (field of consultationMeta; track field.label) {
+            <div>
+              <div class="uppercase text-label-sm text-gray-400">{{ field.label }}</div>
+              <div class="mt-1">{{ field.value }}</div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <div
+        class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.75fr)_minmax(300px,1fr)] gap-block-sm items-start mb-8"
+      >
+        <section
+          class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-4"
+        >
+          <header class="flex items-center gap-3">
+            <h2 class="font-medium text-body-lg">Nota clínica de esta consulta</h2>
+            <div class="flex-1"></div>
+            <span
+              class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-label-md font-medium bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)"
+            >
+              <span class="material-symbols-outlined text-base">edit</span>
+              Borrador
+            </span>
+          </header>
+
+          <div
+            class="border-l-4 border-l-(--mat-app-doc-borrador) bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container) rounded-r-lg p-4 space-y-2"
+          >
+            <p class="text-body-sm">{{ noteMeta }}</p>
+            <p class="text-body-md">{{ notePreview }}</p>
+          </div>
+
+          <div class="flex gap-3 flex-wrap">
+            <button matButton="filled" class="button-small" routerLink="/consultation">
+              <div class="icon-with-text">
+                <span class="material-symbols-outlined">edit_note</span>
+                Continuar nota
+              </div>
+            </button>
+            <button matButton="outlined" class="button-small">Ver vista previa</button>
+          </div>
+
+          <div class="h-px bg-surface-container-highest"></div>
+
+          <p class="uppercase text-label-sm text-gray-400">Otros estados posibles de este bloque</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div
+              class="border border-dashed border-surface-container-highest rounded-lg p-4 flex flex-col items-start gap-3"
+            >
+              <span class="text-body-sm text-gray-400">Sin nota todavía</span>
+              <button matButton="filled" class="button-small" routerLink="/consultation">
+                <div class="icon-with-text">
+                  <span class="material-symbols-outlined">note_add</span>
+                  Iniciar nota
+                </div>
+              </button>
+            </div>
+            <div
+              class="border border-(--mat-app-doc-finalizado) bg-(--mat-app-doc-finalizado-container) text-(--mat-app-on-doc-finalizado-container) rounded-lg p-4 flex flex-col items-start gap-3"
+            >
+              <span
+                class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-label-md font-medium bg-(--mat-app-doc-finalizado) text-(--mat-app-on-doc-finalizado)"
+              >
+                <span class="material-symbols-outlined text-base">lock</span>
+                Finalizada
+              </span>
+              <span class="text-body-sm">Solo lectura, bloqueada permanentemente.</span>
+              <a routerLink="/consultation" class="text-body-sm text-secondary font-medium"
+                >Ver nota finalizada</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <aside class="flex flex-col gap-block-sm">
+          <section class="bg-surface border border-surface-container-highest rounded-xl p-block-sm">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="material-symbols-outlined text-primary">folder_shared</span>
+              <h2 class="font-medium">Resumen del expediente</h2>
+            </div>
+            <div class="flex flex-col gap-3">
+              @for (field of recordSummary; track field.label) {
+                <div>
+                  <div class="uppercase text-label-sm text-gray-400">{{ field.label }}</div>
+                  <div class="text-body-sm mt-0.5">{{ field.value }}</div>
+                </div>
+              }
+            </div>
+            <a
+              routerLink="/patients"
+              class="inline-flex items-center gap-1 mt-4 text-body-sm text-secondary font-medium"
+            >
+              Ver expediente completo
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </a>
+          </section>
+
+          <section class="bg-surface border border-surface-container-highest rounded-xl p-block-sm">
+            <h2 class="font-medium mb-3">Cierre de consulta</h2>
+            <div
+              class="flex gap-2 rounded-lg p-3 bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)"
+            >
+              <span class="material-symbols-outlined text-base flex-none">info</span>
+              <p class="text-body-sm">{{ closingNotice }}</p>
+            </div>
+            <button matButton="filled" class="w-full mt-4" disabled>Cerrar consulta</button>
+            <button matButton class="w-full mt-2 button-secondary">
+              Documentar causa de cierre
+            </button>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </page-content>
+</page-container>

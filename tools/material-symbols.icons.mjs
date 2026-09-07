@@ -49,6 +49,11 @@
   'open_in_new',
   'notes',
 
+  // Consultation detail
+  'folder_shared',
+  'edit_note',
+  'note_add',
+
   // Clinical note
   'cloud_done',
   'monitor_heart',
