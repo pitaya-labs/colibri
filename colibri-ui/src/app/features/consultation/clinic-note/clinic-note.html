@@ -1,0 +1,237 @@
+<page-container>
+  <page-breadcrumb [path]="['Consulta 26 ago, 08:30', 'Nota clínica finalizada']"></page-breadcrumb>
+
+  <page-header [isSticky]="true">
+    <div pageHeaderTitle class="flex items-center gap-3">
+      <span>Nota clínica — {{ patientName }}</span>
+      <span
+        class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-label-md font-medium bg-(--mat-app-doc-finalizado-container) text-(--mat-app-on-doc-finalizado-container)"
+      >
+        <span class="material-symbols-outlined text-base">lock</span>
+        Finalizado
+      </span>
+    </div>
+    <div pageHeaderInformation>{{ demographics }}</div>
+    <div pageHeaderActions class="flex items-center gap-2">
+      <button matButton="outlined" class="button-small" (click)="printNote()">
+        <div class="icon-with-text">
+          <span class="material-symbols-outlined">print</span>
+          Imprimir
+        </div>
+      </button>
+      <button matButton="outlined" class="button-small">
+        <div class="icon-with-text">
+          <span class="material-symbols-outlined">picture_as_pdf</span>
+          PDF
+        </div>
+      </button>
+    </div>
+  </page-header>
+
+  <page-content>
+    <div class="max-w-265 mx-auto">
+      <div
+        class="flex items-start gap-4 flex-wrap rounded-xl px-block-lg py-4 mb-4 bg-(--mat-app-doc-finalizado) text-(--mat-app-on-doc-finalizado)"
+      >
+        <span class="material-symbols-outlined">lock</span>
+        <div class="flex-1 min-w-0">
+          <div class="font-medium text-body-lg">Documento finalizado — no editable</div>
+          <div class="text-body-sm">
+            Estado esperado del expediente. El contenido original no puede modificarse ni
+            eliminarse.
+          </div>
+        </div>
+        <div class="flex gap-6 flex-wrap">
+          <div>
+            <div class="uppercase text-label-sm opacity-90">Autor</div>
+            <div class="text-body-sm mt-0.5">{{ author }}</div>
+          </div>
+          <div>
+            <div class="uppercase text-label-sm opacity-90">Finalizado</div>
+            <div class="text-body-sm mt-0.5">{{ finalizedAt }}</div>
+          </div>
+          <div>
+            <div class="uppercase text-label-sm opacity-90">Versión</div>
+            <div class="text-body-sm mt-0.5">{{ version }}</div>
+          </div>
+          <div>
+            <div class="uppercase text-label-sm opacity-90">Integridad</div>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="font-mono text-body-sm">{{ hashShort }}</span>
+              <button
+                type="button"
+                title="Copiar hash"
+                class="w-6 h-6 flex items-center justify-center rounded-full bg-white/20"
+                (click)="copyHash()"
+              >
+                <span class="material-symbols-outlined text-base">content_copy</span>
+              </button>
+              <button
+                type="button"
+                title="Verificar integridad"
+                class="w-6 h-6 flex items-center justify-center rounded-full bg-white/20"
+                (click)="verifyIntegrity()"
+              >
+                <span class="material-symbols-outlined text-base">verified</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <article
+        class="bg-surface border border-surface-container-highest rounded-xl p-block-lg space-y-7"
+      >
+        <div class="bg-surface-container-low rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2 text-body-sm text-gray-400">
+            <span class="material-symbols-outlined text-base">link</span>
+            <span>Referencia de la consulta — no forma parte del documento</span>
+          </div>
+          <div class="flex gap-10 flex-wrap">
+            @for (field of reference; track field.label) {
+              <div>
+                <div class="uppercase text-label-sm text-gray-400">{{ field.label }}</div>
+                <div class="mt-1">{{ field.value }}</div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 class="uppercase font-medium text-primary text-body-sm tracking-wide mb-2">
+            Evolución / padecimiento actual
+          </h2>
+          <p class="text-body-lg leading-relaxed max-w-[70ch]">{{ evolution }}</p>
+        </div>
+
+        <div>
+          <h2 class="uppercase font-medium text-primary text-body-sm tracking-wide mb-3">
+            Signos vitales
+          </h2>
+          <div class="flex flex-wrap gap-x-10 gap-y-3">
+            @for (vital of vitals; track vital.label) {
+              <div>
+                <span class="text-body-sm text-gray-400">{{ vital.label }}</span>
+                <div class="text-body-lg mt-0.5" [class.text-gray-400]="!vital.unit">
+                  {{ vital.value }}
+                  @if (vital.unit) {
+                    <span class="text-body-sm text-gray-400">{{ vital.unit }}</span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 class="uppercase font-medium text-primary text-body-sm tracking-wide mb-2">
+            Estudios relevantes
+          </h2>
+          <div class="flex items-center gap-2 text-body-lg">
+            <span class="material-symbols-outlined text-gray-400">image</span>
+            <span>{{ study }}</span>
+            <button type="button" class="ml-1 text-body-sm text-secondary font-medium">
+              Ver adjunto
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="uppercase font-medium text-primary text-body-sm tracking-wide mb-2">
+            Diagnósticos
+          </h2>
+          <ul class="list-disc pl-6 text-body-lg space-y-1">
+            @for (dx of diagnoses; track dx) {
+              <li>{{ dx }}</li>
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="uppercase font-medium text-primary text-body-sm tracking-wide mb-2">
+            Pronóstico
+          </h2>
+          <p class="text-body-lg leading-relaxed max-w-[70ch]">{{ prognosis }}</p>
+        </div>
+
+        <div>
+          <h2 class="uppercase font-medium text-primary text-body-sm tracking-wide mb-2">
+            Tratamiento e indicaciones
+          </h2>
+          <p class="text-body-lg leading-relaxed max-w-[70ch]">{{ treatment }}</p>
+        </div>
+
+        <div
+          class="pt-5 border-t border-surface-container-highest flex items-center gap-3 flex-wrap text-body-sm text-gray-400"
+        >
+          <span class="material-symbols-outlined text-base text-(--mat-app-doc-finalizado)"
+            >lock</span
+          >
+          <span>{{ signature }}</span>
+          <span class="text-gray-300">|</span>
+          <span class="font-mono">SHA-256 {{ hashShort }}</span>
+        </div>
+      </article>
+
+      <section
+        class="mt-4 mb-8 bg-surface border border-surface-container-highest rounded-xl overflow-hidden"
+      >
+        <div
+          class="flex items-center gap-3 flex-wrap p-block-lg border-b border-surface-container-highest"
+        >
+          <h2 class="font-medium text-body-lg">Historial de versiones y adendas</h2>
+          <span class="text-body-sm text-gray-400">{{ history.length }} registros</span>
+          <div class="flex-1"></div>
+          <button matButton="outlined" class="button-small button-secondary">
+            <div class="icon-with-text">
+              <span class="material-symbols-outlined">post_add</span>
+              Agregar adenda
+            </div>
+          </button>
+        </div>
+        <div class="p-block-lg pt-2">
+          @for (entry of history; track entry.titulo; let last = $last) {
+            <div
+              class="flex gap-4 py-4"
+              [class.border-b]="!last"
+              [class.border-surface-container-highest]="!last"
+            >
+              <div class="w-8 flex-none flex flex-col items-center gap-1.5">
+                <span
+                  class="w-8 h-8 rounded-full flex items-center justify-center"
+                  [class]="entry.circleClass"
+                >
+                  <span class="material-symbols-outlined text-base">{{ entry.icon }}</span>
+                </span>
+                @if (!last) {
+                  <span class="flex-1 w-0.5 bg-surface-container-highest"></span>
+                }
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-medium">{{ entry.titulo }}</span>
+                  <span class="text-body-sm text-gray-400"
+                    >{{ entry.fecha }} · {{ entry.autor }}</span
+                  >
+                </div>
+                <p class="text-body-sm text-gray-500 mt-1.5 max-w-[82ch] leading-relaxed">
+                  {{ entry.texto }}
+                </p>
+                <div class="flex items-center gap-3 mt-2">
+                  <button type="button" class="text-body-sm text-secondary font-medium">
+                    Ver registro completo
+                  </button>
+                  <span class="font-mono text-label-sm text-gray-400">{{ entry.hash }}</span>
+                </div>
+              </div>
+            </div>
+          }
+          <p class="text-body-sm text-gray-400 mt-4 max-w-[82ch] leading-relaxed">
+            Las adendas son documentos nuevos vinculados a esta nota. No alteran el contenido
+            original ni su hash de integridad.
+          </p>
+        </div>
+      </section>
+    </div>
+  </page-content>
+</page-container>

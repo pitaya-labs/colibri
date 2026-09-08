@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'detail',
     loadComponent: () => import('./detail/detail'),
   },
+  {
+    path: 'clinical-note',
+    loadComponent: () => import('./clinic-note/clinic-note'),
+  },
 ];
 
 export default routes;
