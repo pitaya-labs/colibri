@@ -63,4 +63,12 @@
   'trending_down',
   'check_circle',
   'remove_circle_outline',
+
+  // Finalized clinical note
+  'content_copy',
+  'verified',
+  'print',
+  'picture_as_pdf',
+  'link',
+  'post_add',
 ];
