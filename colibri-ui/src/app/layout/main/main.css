@@ -29,5 +29,6 @@ mat-sidenav-container {
 
   mat-sidenav-content {
     background-color: var(--color-surface-container-low);
+    view-transition-name: page-content;
   }
 }
