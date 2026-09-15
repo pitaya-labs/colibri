@@ -23,7 +23,7 @@ mat-sidenav-container {
     max-width: 190px;
 
     &.collapsed {
-      max-width: 68px;
+      max-width: 60px;
     }
   }
 
@@ -31,4 +31,8 @@ mat-sidenav-container {
     background-color: var(--color-surface-container-low);
     view-transition-name: page-content;
   }
+}
+
+.activated-item {
+  background-color: var(--color-primary-container);
 }

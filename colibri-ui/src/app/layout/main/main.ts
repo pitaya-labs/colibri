@@ -3,7 +3,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@angular/material/list';
 
 @Component({
@@ -23,15 +23,15 @@ import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@ang
     MatListItemTitle,
     MatListItemIcon,
     RouterLink,
+    RouterLinkActive,
   ],
   selector: 'app-main',
   styleUrl: './main.css',
   templateUrl: './main.html',
 })
 export default class Main {
-
   isOpenedNavBar = signal(true);
   toggleButton(): void {
-    this.isOpenedNavBar.update(val => !val);
+    this.isOpenedNavBar.update((val) => !val);
   }
 }
