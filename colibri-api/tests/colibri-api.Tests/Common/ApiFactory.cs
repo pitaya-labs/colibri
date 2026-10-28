@@ -19,8 +19,8 @@ public class ApiFactory : WebApplicationFactory<Program>
         builder.ConfigureServices(services =>
         {
             services.RemoveAll<DbContextOptions<AppDbContext>>();
-            // AddDbContext registra además la configuración (UseNpgsql); sin quitarla conviven dos proveedores.
-            // El tipo (IDbContextOptionsConfiguration<>) es interno de EF, así que se filtra por nombre.
+            // AddDbContext also registers the options configuration (UseNpgsql); without removing it two providers coexist.
+            // The type (IDbContextOptionsConfiguration<>) is internal to EF, so it is matched by name.
             foreach (var descriptor in services.Where(d =>
                          d.ServiceType.IsGenericType &&
                          d.ServiceType.Name.StartsWith("IDbContextOptionsConfiguration") &&

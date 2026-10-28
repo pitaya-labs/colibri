@@ -22,169 +22,169 @@ namespace colibriapi.Common.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("colibri_api.Features.Adscripciones.Domain.Adscripcion", b =>
+            modelBuilder.Entity("colibri_api.Features.Assignments.Domain.Assignment", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid>("ConsultorioId")
+                    b.Property<Guid>("ClinicId")
                         .HasColumnType("uuid")
-                        .HasColumnName("consultorio_id");
+                        .HasColumnName("clinic_id");
 
-                    b.Property<DateTimeOffset>("CreadaEn")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creada_en");
+                        .HasColumnName("created_at");
 
-                    b.Property<string>("Estado")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)")
-                        .HasColumnName("estado");
+                        .HasColumnName("role");
 
-                    b.Property<string>("Rol")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)")
-                        .HasColumnName("rol");
+                        .HasColumnName("status");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid")
                         .HasColumnName("tenant_id");
 
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid")
-                        .HasColumnName("usuario_id");
+                        .HasColumnName("user_id");
 
-                    b.Property<DateOnly>("VigenciaDesde")
+                    b.Property<DateOnly>("ValidFrom")
                         .HasColumnType("date")
-                        .HasColumnName("vigencia_desde");
+                        .HasColumnName("valid_from");
 
-                    b.Property<DateOnly?>("VigenciaHasta")
+                    b.Property<DateOnly?>("ValidTo")
                         .HasColumnType("date")
-                        .HasColumnName("vigencia_hasta");
+                        .HasColumnName("valid_to");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConsultorioId");
+                    b.HasIndex("ClinicId");
 
                     b.HasIndex("TenantId");
 
-                    b.HasIndex("UsuarioId", "ConsultorioId")
-                        .HasDatabaseName("idx_adscripcion_usuario_activa")
-                        .HasFilter("estado = 'activa'");
+                    b.HasIndex("UserId", "ClinicId")
+                        .HasDatabaseName("idx_assignment_active_user")
+                        .HasFilter("status = 'active'");
 
-                    b.HasIndex("UsuarioId", "ConsultorioId", "VigenciaDesde")
+                    b.HasIndex("UserId", "ClinicId", "ValidFrom")
                         .IsUnique();
 
-                    b.ToTable("adscripcion", null, t =>
+                    b.ToTable("assignment", null, t =>
                         {
-                            t.HasCheckConstraint("ck_adscripcion_estado", "estado IN ('activa', 'inactiva')");
+                            t.HasCheckConstraint("ck_assignment_role", "role IN ('doctor', 'administrative')");
 
-                            t.HasCheckConstraint("ck_adscripcion_rol", "rol IN ('medico', 'administrativo')");
+                            t.HasCheckConstraint("ck_assignment_status", "status IN ('active', 'inactive')");
 
-                            t.HasCheckConstraint("ck_adscripcion_vigencia", "vigencia_hasta IS NULL OR vigencia_hasta >= vigencia_desde");
+                            t.HasCheckConstraint("ck_assignment_validity", "valid_to IS NULL OR valid_to >= valid_from");
                         });
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Consultorios.Domain.Consultorio", b =>
+            modelBuilder.Entity("colibri_api.Features.Clinics.Domain.Clinic", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("Contacto")
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)")
-                        .HasColumnName("contacto");
-
-                    b.Property<DateTimeOffset>("CreadoEn")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creado_en");
-
-                    b.Property<string>("Domicilio")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)")
-                        .HasColumnName("domicilio");
+                        .HasColumnName("address");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)")
-                        .HasColumnName("estado");
+                    b.Property<string>("Contact")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("contact");
 
-                    b.Property<string>("Nombre")
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)")
-                        .HasColumnName("nombre");
+                        .HasColumnName("name");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("status");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid")
                         .HasColumnName("tenant_id");
 
-                    b.Property<string>("ZonaHoraria")
+                    b.Property<string>("TimeZone")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)")
-                        .HasColumnName("zona_horaria");
+                        .HasColumnName("time_zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("consultorio", null, t =>
+                    b.ToTable("clinic", null, t =>
                         {
-                            t.HasCheckConstraint("ck_consultorio_estado", "estado IN ('activo', 'inactivo')");
+                            t.HasCheckConstraint("ck_clinic_status", "status IN ('active', 'inactive')");
                         });
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Medicos.Domain.Medico", b =>
+            modelBuilder.Entity("colibri_api.Features.Doctors.Domain.Doctor", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("CedulaEspecialidad")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("cedula_especialidad");
-
-                    b.Property<string>("CedulaProfesional")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("cedula_profesional");
-
-                    b.Property<DateTimeOffset>("CreadoEn")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creado_en");
+                        .HasColumnName("created_at");
 
-                    b.Property<string>("EstadoVerificacion")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)")
-                        .HasColumnName("estado_verificacion");
-
-                    b.Property<string>("NombreCompleto")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
-                        .HasColumnName("nombre_completo");
+                        .HasColumnName("full_name");
+
+                    b.Property<string>("ProfessionalLicense")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("professional_license");
+
+                    b.Property<string>("SpecialtyLicense")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("specialty_license");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid")
                         .HasColumnName("tenant_id");
 
+                    b.Property<string>("VerificationStatus")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("verification_status");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("TenantId", "CedulaProfesional")
+                    b.HasIndex("TenantId", "ProfessionalLicense")
                         .IsUnique();
 
-                    b.ToTable("medico", null, t =>
+                    b.ToTable("doctor", null, t =>
                         {
-                            t.HasCheckConstraint("ck_medico_estado_verificacion", "estado_verificacion IN ('pendiente', 'verificado', 'rechazado')");
+                            t.HasCheckConstraint("ck_doctor_verification_status", "verification_status IN ('pending', 'verified', 'rejected')");
                         });
                 });
 
@@ -194,194 +194,194 @@ namespace colibriapi.Common.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTimeOffset>("CreadoEn")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creado_en");
+                        .HasColumnName("created_at");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)")
-                        .HasColumnName("estado");
-
-                    b.Property<string>("NombreResponsable")
+                    b.Property<string>("ResponsibleName")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
-                        .HasColumnName("nombre_responsable");
+                        .HasColumnName("responsible_name");
 
                     b.Property<string>("Rfc")
                         .HasMaxLength(13)
                         .HasColumnType("character varying(13)")
                         .HasColumnName("rfc");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("status");
+
                     b.HasKey("Id");
 
                     b.ToTable("tenant", null, t =>
                         {
-                            t.HasCheckConstraint("ck_tenant_estado", "estado IN ('activo', 'suspendido')");
+                            t.HasCheckConstraint("ck_tenant_status", "status IN ('active', 'suspended')");
                         });
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Usuarios.Domain.MfaCredencial", b =>
+            modelBuilder.Entity("colibri_api.Features.Users.Domain.MfaCredential", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTimeOffset>("CreadoEn")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creado_en");
+                        .HasColumnName("created_at");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)")
-                        .HasColumnName("estado");
-
-                    b.Property<byte[]>("SecretoCifrado")
+                    b.Property<byte[]>("EncryptedSecret")
                         .IsRequired()
                         .HasColumnType("bytea")
-                        .HasColumnName("secreto_cifrado");
+                        .HasColumnName("encrypted_secret");
 
-                    b.Property<string>("Tipo")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)")
-                        .HasColumnName("tipo");
+                        .HasColumnName("status");
 
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("type");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid")
-                        .HasColumnName("usuario_id");
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("mfa_credencial", null, t =>
+                    b.ToTable("mfa_credential", null, t =>
                         {
-                            t.HasCheckConstraint("ck_mfa_credencial_estado", "estado IN ('activo', 'revocado')");
+                            t.HasCheckConstraint("ck_mfa_credential_status", "status IN ('active', 'revoked')");
 
-                            t.HasCheckConstraint("ck_mfa_credencial_tipo", "tipo IN ('totp')");
+                            t.HasCheckConstraint("ck_mfa_credential_type", "type IN ('totp')");
                         });
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Usuarios.Domain.Sesion", b =>
+            modelBuilder.Entity("colibri_api.Features.Users.Domain.Session", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTimeOffset>("CreadaEn")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creada_en");
+                        .HasColumnName("created_at");
 
-                    b.Property<string>("Estado")
+                    b.Property<DateTimeOffset>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expires_at");
+
+                    b.Property<string>("OriginIp")
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)")
+                        .HasColumnName("origin_ip");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)")
-                        .HasColumnName("estado");
-
-                    b.Property<DateTimeOffset>("ExpiraEn")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expira_en");
-
-                    b.Property<string>("OrigenIp")
-                        .HasMaxLength(45)
-                        .HasColumnType("character varying(45)")
-                        .HasColumnName("origen_ip");
+                        .HasColumnName("status");
 
                     b.Property<string>("UserAgent")
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)")
                         .HasColumnName("user_agent");
 
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid")
-                        .HasColumnName("usuario_id");
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("sesion", null, t =>
+                    b.ToTable("session", null, t =>
                         {
-                            t.HasCheckConstraint("ck_sesion_estado", "estado IN ('activa', 'revocada', 'expirada')");
+                            t.HasCheckConstraint("ck_session_status", "status IN ('active', 'revoked', 'expired')");
                         });
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Usuarios.Domain.Usuario", b =>
+            modelBuilder.Entity("colibri_api.Features.Users.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("Correo")
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("DoctorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("doctor_id");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(320)
                         .HasColumnType("character varying(320)")
-                        .HasColumnName("correo");
+                        .HasColumnName("email");
 
-                    b.Property<DateTimeOffset>("CreadoEn")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("creado_en");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)")
-                        .HasColumnName("estado");
-
-                    b.Property<Guid?>("MedicoId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("medico_id");
-
-                    b.Property<bool>("MfaHabilitado")
-                        .HasColumnType("boolean")
-                        .HasColumnName("mfa_habilitado");
-
-                    b.Property<string>("NombreCompleto")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
-                        .HasColumnName("nombre_completo");
+                        .HasColumnName("full_name");
+
+                    b.Property<DateTimeOffset?>("LastAccessAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("last_access_at");
+
+                    b.Property<bool>("MfaEnabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("mfa_enabled");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("status");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid")
                         .HasColumnName("tenant_id");
 
-                    b.Property<string>("Tipo")
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)")
-                        .HasColumnName("tipo");
-
-                    b.Property<DateTimeOffset?>("UltimoAcceso")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ultimo_acceso");
+                        .HasColumnName("type");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedicoId");
+                    b.HasIndex("DoctorId");
 
-                    b.HasIndex("TenantId", "Correo")
+                    b.HasIndex("TenantId", "Email")
                         .IsUnique();
 
-                    b.ToTable("usuario", null, t =>
+                    b.ToTable("app_user", null, t =>
                         {
-                            t.HasCheckConstraint("ck_usuario_estado", "estado IN ('activo', 'suspendido', 'baja')");
+                            t.HasCheckConstraint("ck_app_user_doctor_id", "(type = 'doctor') = (doctor_id IS NOT NULL)");
 
-                            t.HasCheckConstraint("ck_usuario_medico_id", "(tipo = 'medico') = (medico_id IS NOT NULL)");
+                            t.HasCheckConstraint("ck_app_user_status", "status IN ('active', 'suspended', 'terminated')");
 
-                            t.HasCheckConstraint("ck_usuario_tipo", "tipo IN ('medico', 'administrativo', 'administrador_sistema', 'soporte')");
+                            t.HasCheckConstraint("ck_app_user_type", "type IN ('doctor', 'administrative', 'system_admin', 'support')");
                         });
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Adscripciones.Domain.Adscripcion", b =>
+            modelBuilder.Entity("colibri_api.Features.Assignments.Domain.Assignment", b =>
                 {
-                    b.HasOne("colibri_api.Features.Consultorios.Domain.Consultorio", "Consultorio")
+                    b.HasOne("colibri_api.Features.Clinics.Domain.Clinic", "Clinic")
                         .WithMany()
-                        .HasForeignKey("ConsultorioId")
+                        .HasForeignKey("ClinicId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -391,31 +391,20 @@ namespace colibriapi.Common.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("colibri_api.Features.Usuarios.Domain.Usuario", "Usuario")
+                    b.HasOne("colibri_api.Features.Users.Domain.User", "User")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Consultorio");
+                    b.Navigation("Clinic");
 
                     b.Navigation("Tenant");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Consultorios.Domain.Consultorio", b =>
-                {
-                    b.HasOne("colibri_api.Features.Tenants.Domain.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("colibri_api.Features.Medicos.Domain.Medico", b =>
+            modelBuilder.Entity("colibri_api.Features.Clinics.Domain.Clinic", b =>
                 {
                     b.HasOne("colibri_api.Features.Tenants.Domain.Tenant", "Tenant")
                         .WithMany()
@@ -426,33 +415,44 @@ namespace colibriapi.Common.Persistence.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Usuarios.Domain.MfaCredencial", b =>
+            modelBuilder.Entity("colibri_api.Features.Doctors.Domain.Doctor", b =>
                 {
-                    b.HasOne("colibri_api.Features.Usuarios.Domain.Usuario", "Usuario")
+                    b.HasOne("colibri_api.Features.Tenants.Domain.Tenant", "Tenant")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Usuarios.Domain.Sesion", b =>
+            modelBuilder.Entity("colibri_api.Features.Users.Domain.MfaCredential", b =>
                 {
-                    b.HasOne("colibri_api.Features.Usuarios.Domain.Usuario", "Usuario")
+                    b.HasOne("colibri_api.Features.Users.Domain.User", "User")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("colibri_api.Features.Usuarios.Domain.Usuario", b =>
+            modelBuilder.Entity("colibri_api.Features.Users.Domain.Session", b =>
                 {
-                    b.HasOne("colibri_api.Features.Medicos.Domain.Medico", "Medico")
+                    b.HasOne("colibri_api.Features.Users.Domain.User", "User")
                         .WithMany()
-                        .HasForeignKey("MedicoId")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("colibri_api.Features.Users.Domain.User", b =>
+                {
+                    b.HasOne("colibri_api.Features.Doctors.Domain.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("colibri_api.Features.Tenants.Domain.Tenant", "Tenant")
@@ -461,7 +461,7 @@ namespace colibriapi.Common.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Medico");
+                    b.Navigation("Doctor");
 
                     b.Navigation("Tenant");
                 });

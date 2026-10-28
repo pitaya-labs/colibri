@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace colibri_api.Common.Persistence;
 
 /// <summary>
-/// Persiste un enum como texto snake_case (<c>NoPresentado</c> → <c>no_presentado</c>), que es la
-/// forma en que el diseño de BD define los valores de <c>estado</c>/<c>tipo</c>.
+/// Persists an enum as snake_case text (<c>SystemAdmin</c> → <c>system_admin</c>), the form the
+/// database design uses for <c>status</c>/<c>type</c> values.
 /// </summary>
 public sealed class SnakeCaseEnumConverter<TEnum>()
     : ValueConverter<TEnum, string>(v => SnakeCaseEnumMap<TEnum>.Names[v], s => SnakeCaseEnumMap<TEnum>.Values[s])
@@ -33,7 +33,7 @@ public static class SnakeCaseEnum
         where TEnum : struct, Enum =>
         property.HasConversion(new SnakeCaseEnumConverter<TEnum>()).HasMaxLength(32);
 
-    /// <summary>Expresión <c>columna IN ('a', 'b')</c> para un CHECK que refleje el enum.</summary>
+    /// <summary>Builds a <c>column IN ('a', 'b')</c> expression for a CHECK that mirrors the enum.</summary>
     public static string CheckIn<TEnum>(string column) where TEnum : struct, Enum =>
         $"{column} IN ({string.Join(", ", SnakeCaseEnumMap<TEnum>.Names.Values.Select(n => $"'{n}'"))})";
 }

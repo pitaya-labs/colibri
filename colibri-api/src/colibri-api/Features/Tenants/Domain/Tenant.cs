@@ -1,50 +1,50 @@
 namespace colibri_api.Features.Tenants.Domain;
 
-public enum TenantEstado
+public enum TenantStatus
 {
-    Activo,
-    Suspendido
+    Active,
+    Suspended
 }
 
 /// <summary>
-/// Responsable jurídico y límite de aislamiento de datos (DEC-P3-001): dos médicos independientes
-/// nunca comparten tenant.
+/// Legal entity responsible for the data and the data isolation boundary (DEC-P3-001):
+/// two independent doctors never share a tenant.
 /// </summary>
 public sealed class Tenant
 {
     private Tenant() { }
 
     public Guid Id { get; private set; }
-    public string NombreResponsable { get; private set; } = null!;
+    public string ResponsibleName { get; private set; } = null!;
     public string? Rfc { get; private set; }
-    public TenantEstado Estado { get; private set; }
-    public DateTimeOffset CreadoEn { get; private set; }
+    public TenantStatus Status { get; private set; }
+    public DateTimeOffset CreatedAt { get; private set; }
 
-    public static Tenant Crear(string nombreResponsable, string? rfc, DateTimeOffset ahora)
+    public static Tenant Create(string responsibleName, string? rfc, DateTimeOffset now)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(nombreResponsable);
+        ArgumentException.ThrowIfNullOrWhiteSpace(responsibleName);
 
         return new Tenant
         {
             Id = Guid.CreateVersion7(),
-            NombreResponsable = nombreResponsable.Trim(),
+            ResponsibleName = responsibleName.Trim(),
             Rfc = string.IsNullOrWhiteSpace(rfc) ? null : rfc.Trim().ToUpperInvariant(),
-            Estado = TenantEstado.Activo,
-            CreadoEn = ahora
+            Status = TenantStatus.Active,
+            CreatedAt = now
         };
     }
 
-    public void Suspender()
+    public void Suspend()
     {
-        if (Estado == TenantEstado.Suspendido)
-            throw new InvalidOperationException("El tenant ya está suspendido.");
-        Estado = TenantEstado.Suspendido;
+        if (Status == TenantStatus.Suspended)
+            throw new InvalidOperationException("The tenant is already suspended.");
+        Status = TenantStatus.Suspended;
     }
 
-    public void Reactivar()
+    public void Reactivate()
     {
-        if (Estado == TenantEstado.Activo)
-            throw new InvalidOperationException("El tenant ya está activo.");
-        Estado = TenantEstado.Activo;
+        if (Status == TenantStatus.Active)
+            throw new InvalidOperationException("The tenant is already active.");
+        Status = TenantStatus.Active;
     }
 }

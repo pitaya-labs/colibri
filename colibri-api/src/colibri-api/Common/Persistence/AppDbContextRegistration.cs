@@ -14,7 +14,7 @@ public static class AppDbContextRegistration
         {
             using var scope = app.Services.CreateScope();
             var database = scope.ServiceProvider.GetRequiredService<AppDbContext>().Database;
-            // Las migraciones se generan para PostgreSQL; los tests corren sobre SQLite y crean su esquema aparte.
+            // Migrations are generated for PostgreSQL; tests run on SQLite and create their own schema.
             if (database.IsNpgsql() && database.GetPendingMigrations().Any())
             {
                 database.Migrate();

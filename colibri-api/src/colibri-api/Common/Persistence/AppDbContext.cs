@@ -1,8 +1,8 @@
-using colibri_api.Features.Adscripciones.Domain;
-using colibri_api.Features.Consultorios.Domain;
-using colibri_api.Features.Medicos.Domain;
+using colibri_api.Features.Assignments.Domain;
+using colibri_api.Features.Clinics.Domain;
+using colibri_api.Features.Doctors.Domain;
 using colibri_api.Features.Tenants.Domain;
-using colibri_api.Features.Usuarios.Domain;
+using colibri_api.Features.Users.Domain;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -12,12 +12,12 @@ namespace colibri_api.Common.Persistence;
 public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger) : DbContext(options)
 {
     public DbSet<Tenant> Tenants => Set<Tenant>();
-    public DbSet<Medico> Medicos => Set<Medico>();
-    public DbSet<Usuario> Usuarios => Set<Usuario>();
-    public DbSet<MfaCredencial> MfaCredenciales => Set<MfaCredencial>();
-    public DbSet<Sesion> Sesiones => Set<Sesion>();
-    public DbSet<Consultorio> Consultorios => Set<Consultorio>();
-    public DbSet<Adscripcion> Adscripciones => Set<Adscripcion>();
+    public DbSet<Doctor> Doctors => Set<Doctor>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<MfaCredential> MfaCredentials => Set<MfaCredential>();
+    public DbSet<Session> Sessions => Set<Session>();
+    public DbSet<Clinic> Clinics => Set<Clinic>();
+    public DbSet<Assignment> Assignments => Set<Assignment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
@@ -45,7 +45,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         }
     }
 
-    // PostgreSQL en producción (SqlState 23505); SQLite en memoria en los tests.
+    // PostgreSQL in production (SqlState 23505); in-memory SQLite in the tests.
     private static bool IsUniqueConstraintViolation(DbUpdateException ex) =>
         ex.InnerException switch
         {
