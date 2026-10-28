@@ -4,8 +4,8 @@
     <div pageHeaderTitle>Nuevo Paciente</div>
     <div pageHeaderInformation>Registro de alta · los campos marcados como (opcional) pueden completarse después desde el expediente.</div>
     <div pageHeaderActions class="flex gap-2">
-      <button matButton="outlined" class="button-small" routerLink="/patients">Cancelar</button>
-      <button matButton="filled" class="button-small" (click)="onSave()">
+      <button matButton="outlined" routerLink="/patients">Cancelar</button>
+      <button matButton="filled" (click)="onSave()">
         <div class="icon-with-text">
           <span class="material-symbols-outlined">person_add</span>
           Guardar

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { PageContainer } from '@shared-ui/page-structure/page-container';
 import { PageHeader } from '@shared-ui/page-structure/page-header';
 import { PageContent } from '@shared-ui/page-structure/page-content';
@@ -40,14 +40,35 @@ interface Patient {
   styleUrl: './create.css',
   templateUrl: './create.html',
 })
-export class Create {
+export class Create implements OnInit {
   private router = inject(Router);
   private readonly modalService: ModalService = inject(ModalService);
 
   patients: Patient[] = [
-    { id: 1, nombre: 'Paciente A-0871', sexo: 'M', edad: 51, expediente: '871', telefono: '55 1234 5678' },
-    { id: 2, nombre: 'Paciente A-0812', sexo: 'F', edad: 39, expediente: '812', telefono: '55 8765 4321' },
-    { id: 3, nombre: 'Paciente A-0899', sexo: 'M', edad: 24, expediente: '899', telefono: '55 2233 1100' },
+    {
+      id: 1,
+      nombre: 'Paciente A-0871',
+      sexo: 'M',
+      edad: 51,
+      expediente: '871',
+      telefono: '55 1234 5678',
+    },
+    {
+      id: 2,
+      nombre: 'Paciente A-0812',
+      sexo: 'F',
+      edad: 39,
+      expediente: '812',
+      telefono: '55 8765 4321',
+    },
+    {
+      id: 3,
+      nombre: 'Paciente A-0899',
+      sexo: 'M',
+      edad: 24,
+      expediente: '899',
+      telefono: '55 2233 1100',
+    },
   ];
 
   horariosLibres = ['09:00', '09:30', '10:30', '11:00', '12:00'];
@@ -69,6 +90,8 @@ export class Create {
       (p) => p.nombre.toLowerCase().includes(query) || p.expediente.includes(query),
     );
   });
+
+  ngOnInit() {}
 
   onSearchInput(value: string) {
     this.searchQuery.set(value);
@@ -102,8 +125,8 @@ export class Create {
 
   create(): void {
     this.modalService
-      .showYesNoModal('La cita se creo correctamente', 'Quieres iniciar la consulta en este momento?')
-      .subscribe(result => {
+      .showYesNoModal('Cita Creada', '¿Quieres iniciar la consulta en este momento?')
+      .subscribe((result) => {
         if (result) {
           this.router.navigate(['/consultation']);
         }

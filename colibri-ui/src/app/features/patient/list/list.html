@@ -13,28 +13,28 @@
 
   <page-content>
     <div class="flex flex-col space-y-4">
-      <mat-form-field appearance="outline" class="form-field-compact w-full bg-on-primary" subscriptSizing="dynamic">
+      <mat-form-field class="form-field-compact w-full" subscriptSizing="dynamic">
         <mat-label>Buscar por nombre o apellido...</mat-label>
-        <span class="material-symbols-outlined" matIconPrefix>search</span>
+        <span class="material-symbols-outlined space-left" matIconPrefix>search</span>
         <input matInput>
       </mat-form-field>
 
       <section class="flex justify-end items-center gap-3 flex-wrap bg-surface border border-surface-container-highest rounded-xl py-3 px-4 mb-4">
         <span class="material-symbols-outlined">filter_alt</span>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field-compact">
+        <mat-form-field subscriptSizing="dynamic" class="form-field-compact">
           <mat-label>Consultorio</mat-label>
           <mat-select>
             <mat-option>Consultorio 1</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="form-field-compact" subscriptSizing="dynamic">
+        <mat-form-field class="form-field-compact" subscriptSizing="dynamic">
           <mat-label>Sexo Registrado</mat-label>
           <mat-select>
             <mat-option>Masculino</mat-option>
             <mat-option>Femenino</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="form-field-compact" subscriptSizing="dynamic">
+        <mat-form-field class="form-field-compact" subscriptSizing="dynamic">
           <mat-label>Telefono</mat-label>
           <input matInput type="tel">
         </mat-form-field>
@@ -43,7 +43,7 @@
       </section>
 
       <section class="bg-surface rounded-xl border border-surface-container-highest">
-        <div class="flex flex-row justify-between items-center bg-surface-container-high rounded-t-xl px-4">
+        <div class="flex flex-row justify-between items-center bg-surface-container-high rounded-t-xl px-4 py-2">
           <div class="font-(--font-weight-title)">
             <span>124 pacientes</span>
           </div>

@@ -202,20 +202,16 @@
   --form-fields-height-compact: 38px;
 
   --padding-12: 12px;
+
+  --nav-bar-width: 190px;
+  --nav-bar-width-collapsed: 60px;
 }
 
-/* El snapshot "root" (todo el documento) no debe animar: solo el contenido dentro de
-   mat-sidenav-content (view-transition-name: page-content, ver layout/main/main.css) tiene su
-   propio snapshot y anima. Esto mantiene el toolbar y el sidenav estáticos entre navegaciones. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
 }
 
-/* Transición de ruta (View Transitions API, habilitada en app.config.ts vía
-   withViewTransitions()). Crossfade breve entre la página saliente y la entrante,
-   similar al efecto usado en angular.dev. Omitida por completo cuando el usuario
-   tiene activada la preferencia de accesibilidad "reducir movimiento" (spec FR-006). */
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-old(page-content),
   ::view-transition-new(page-content) {

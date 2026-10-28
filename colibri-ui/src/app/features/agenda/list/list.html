@@ -36,8 +36,8 @@
           <span>4 citas</span> - <span>4 consultas</span>
         </div>
         <div class="flex flex-row items-center gap-2 py-3">
-          <mat-form-field appearance="outline" class="form-field-compact" subscriptSizing="dynamic">
-            <span class="material-symbols-outlined" matIconPrefix>search</span>
+          <mat-form-field class="form-field-compact" subscriptSizing="dynamic">
+            <span class="material-symbols-outlined space-left" matIconPrefix>search</span>
             <input matInput placeholder="Buscar Paciente">
           </mat-form-field>
           <button matButton="outlined" class="button-secondary">
@@ -79,9 +79,7 @@
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef> Tipo </th>
           <td mat-cell *matCellDef="let element">
-            <div class="w-fit border border-tertiary bg-tertiary-container text-on-tertiary-container rounded-lg p-0.5">
-              Consulta
-            </div>
+            <div class="chip">Consulta</div>
           </td>
         </ng-container>
 

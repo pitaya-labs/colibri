@@ -16,23 +16,26 @@ mat-toolbar {
   }
 }
 
-mat-sidenav-container {
+.activated-item {
+  background-color: var(--color-primary-container);
+}
+
+.container-area {
+  display: flex;
   height: calc(100vh - var(--toolbar-standard-height));
 
-  mat-sidenav {
-    max-width: 190px;
+  nav {
+    width: var(--nav-bar-width);
+    transition: width 0.3s ease;
 
     &.collapsed {
-      max-width: 60px;
+      width: var(--nav-bar-width-collapsed);
+      transition: width 0.3s ease;
     }
   }
 
-  mat-sidenav-content {
+  main {
+    flex: 1;
     background-color: var(--color-surface-container-low);
-    view-transition-name: page-content;
   }
-}
-
-.activated-item {
-  background-color: var(--color-primary-container);
 }

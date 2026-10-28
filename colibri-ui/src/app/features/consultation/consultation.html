@@ -9,13 +9,13 @@
         <span class="material-symbols-outlined text-base">edit</span> Borrador </span>
     </div>
     <div pageHeaderActions class="flex items-center gap-3">
-      <button matButton="outlined" class="button-small button-secondary" (click)="saveDraft()">
+      <button matButton="outlined" (click)="saveDraft()">
         <div class="icon-with-text">
           <span class="material-symbols-outlined">save</span>
           Guardar borrador
         </div>
       </button>
-      <button matButton="filled" class="button-small" (click)="finalize()">
+      <button matButton="filled" (click)="finalize()">
         <div class="icon-with-text">
           <span class="material-symbols-outlined">lock</span>
           Finalizar nota
@@ -25,7 +25,7 @@
   </page-header>
 
   <page-content>
-    <div class="max-w-290 mx-auto">
+    <div class="max-w-290">
       <div class="flex items-center gap-2 flex-wrap rounded-xl px-block-sm py-3 mb-4 text-body-sm bg-(--mat-app-doc-borrador-container) text-(--mat-app-on-doc-borrador-container)">
         <span class="material-symbols-outlined text-base">cloud_done</span>
         <span>Guardado automático hace {{ savedSecondsAgo }} s · sin cambios pendientes</span>

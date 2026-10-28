@@ -2,7 +2,6 @@ import { Component, signal } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatFormField, MatOption, MatSelect, MatSelectTrigger } from '@angular/material/select';
-import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@angular/material/list';
 
@@ -14,9 +13,6 @@ import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@ang
     MatOption,
     MatFormField,
     MatSelectTrigger,
-    MatSidenavContainer,
-    MatSidenav,
-    MatSidenavContent,
     RouterOutlet,
     MatNavList,
     MatListItem,
@@ -31,6 +27,7 @@ import { MatListItem, MatListItemIcon, MatListItemTitle, MatNavList } from '@ang
 })
 export default class Main {
   isOpenedNavBar = signal(true);
+
   toggleButton(): void {
     this.isOpenedNavBar.update((val) => !val);
   }
