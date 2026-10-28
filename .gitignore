@@ -1,0 +1,22 @@
+# IDEs y editores
+.idea/
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+
+# Secretos locales
+.env
+.env.*
+**/appsettings.Local.json
+
+# Archivos de usuario del IDE
+*.user
+*.DotSettings.user
+
+# Sistema
+.DS_Store
+Thumbs.db
