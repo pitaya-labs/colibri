@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/colibri-api/colibri-api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/colibri-api.Tests/colibri-api.Tests.csproj" />
+  </Folder>
+</Solution>
