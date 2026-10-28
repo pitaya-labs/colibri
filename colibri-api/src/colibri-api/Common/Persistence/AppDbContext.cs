@@ -1,10 +1,23 @@
+using colibri_api.Features.Adscripciones.Domain;
+using colibri_api.Features.Consultorios.Domain;
+using colibri_api.Features.Medicos.Domain;
+using colibri_api.Features.Tenants.Domain;
+using colibri_api.Features.Usuarios.Domain;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace colibri_api.Common.Persistence;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger) : DbContext(options)
 {
+    public DbSet<Tenant> Tenants => Set<Tenant>();
+    public DbSet<Medico> Medicos => Set<Medico>();
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
+    public DbSet<MfaCredencial> MfaCredenciales => Set<MfaCredencial>();
+    public DbSet<Sesion> Sesiones => Set<Sesion>();
+    public DbSet<Consultorio> Consultorios => Set<Consultorio>();
+    public DbSet<Adscripcion> Adscripciones => Set<Adscripcion>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
@@ -32,9 +45,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         }
     }
 
+    // PostgreSQL en producción (SqlState 23505); SQLite en memoria en los tests.
     private static bool IsUniqueConstraintViolation(DbUpdateException ex) =>
-        ex.InnerException is SqliteException inner &&
-        inner.SqliteErrorCode == 19 &&
-        inner.Message.Contains("UNIQUE constraint failed", StringComparison.OrdinalIgnoreCase);
+        ex.InnerException switch
+        {
+            PostgresException pg => pg.SqlState == PostgresErrorCodes.UniqueViolation,
+            SqliteException lite => lite.SqliteErrorCode == 19 &&
+                lite.Message.Contains("UNIQUE constraint failed", StringComparison.OrdinalIgnoreCase),
+            _ => false
+        };
 
 }

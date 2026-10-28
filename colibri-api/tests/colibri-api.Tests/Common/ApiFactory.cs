@@ -19,6 +19,13 @@ public class ApiFactory : WebApplicationFactory<Program>
         builder.ConfigureServices(services =>
         {
             services.RemoveAll<DbContextOptions<AppDbContext>>();
+            // AddDbContext registra además la configuración (UseNpgsql); sin quitarla conviven dos proveedores.
+            // El tipo (IDbContextOptionsConfiguration<>) es interno de EF, así que se filtra por nombre.
+            foreach (var descriptor in services.Where(d =>
+                         d.ServiceType.IsGenericType &&
+                         d.ServiceType.Name.StartsWith("IDbContextOptionsConfiguration") &&
+                         d.ServiceType.GenericTypeArguments[0] == typeof(AppDbContext)).ToList())
+                services.Remove(descriptor);
             services.AddDbContext<AppDbContext>(options => options.UseSqlite(_connection));
         });
     }
